@@ -227,6 +227,18 @@ nav button.active{
     color:#1769e0;
     font-weight:bold;
 }
+
+.doctor-grid{display:grid;gap:10px;margin-top:12px}
+.doctor-card{border:1px solid #e0e6ed;border-radius:14px;padding:14px;background:#f8fafc}
+.doctor-card .doctor-top{display:flex;justify-content:space-between;gap:10px}
+.badge{display:inline-block;padding:5px 8px;border-radius:999px;font-size:11px;font-weight:bold}
+.badge.available{background:#e9f9f0;color:#087443}
+.badge.busy{background:#fff7df;color:#856404}
+.sos-card{background:#fff0ef;border:1px solid #ffc8c4}
+.sos-button{background:#d92d20;color:#fff;font-weight:bold;width:100%;margin-top:10px}
+.info-row{padding:10px 0;border-bottom:1px solid #e5e9ef}
+.info-row:last-child{border-bottom:0}
+
 </style>
 </head>
 
@@ -261,6 +273,38 @@ nav button.active{
             5. Add items to cart<br>
             6. Continue to demo payment
         </p>
+    </div>
+
+
+    <!-- SOS -->
+    <div class="card sos-card">
+        <h3>🆘 Medical Emergency SOS</h3>
+        <p style="color:#68778b;font-size:13px">
+            Demo feature: requests your location and shows the nearest available
+            demo medical responder. It does not contact a real doctor or emergency service.
+        </p>
+        <button class="sos-button" onclick="triggerSOS()">
+            🚨 SEND SOS ALERT
+        </button>
+        <div id="sosResult"></div>
+    </div>
+
+    <!-- Doctor Finder -->
+    <div class="card">
+        <h3>👨‍⚕️ Find a Doctor</h3>
+        <p style="color:#68778b;font-size:13px">
+            Choose a speciality to view demo nearby doctors.
+        </p>
+        <select id="specialtySelect" onchange="filterDoctors()"
+                style="width:100%;padding:13px;border:1px solid #ccd5df;border-radius:10px;font-size:15px">
+            <option value="All">All Specialities</option>
+            <option value="General Physician">General Physician</option>
+            <option value="Pediatrician">Pediatrician</option>
+            <option value="ENT Specialist">ENT Specialist</option>
+            <option value="Dermatologist">Dermatologist</option>
+            <option value="Cardiologist">Cardiologist</option>
+        </select>
+        <div id="doctorList" class="doctor-grid"></div>
     </div>
 
     <div class="card">
@@ -553,25 +597,41 @@ const medicines = {
     "AMX-2291-GEN":{
         name:"Amoxicillin 500mg",
         manufacturer:"GenPharma Ltd.",
-        status:"verified"
+        status:"verified",
+        batch:"AMX-2291-GEN",
+        expiry:"2028-12-01",
+        dosage:"Follow the dose written on the prescription or medicine label.",
+        foodInstruction:"Check the medicine label or prescription for before/after-food instructions."
     },
 
     "PCM-0087-SAFE":{
         name:"Paracetamol 650mg",
         manufacturer:"NatWell Pharma",
-        status:"verified"
+        status:"verified",
+        batch:"PCM-0087-SAFE",
+        expiry:"2028-10-01",
+        dosage:"Follow the dose written on the prescription or medicine label.",
+        foodInstruction:"Check the medicine label or prescription for before/after-food instructions."
     },
 
     "INS-4410-RCL":{
         name:"Sample Medicine",
         manufacturer:"Demo Pharma",
-        status:"recalled"
+        status:"recalled",
+        batch:"INS-4410-RCL",
+        expiry:"2027-06-01",
+        dosage:"Do not use a recalled product; follow official/pharmacist guidance.",
+        foodInstruction:"Not applicable for this recalled demo product."
     },
 
     "XYZ-0000-FAKE":{
         name:"Unknown Medicine",
         manufacturer:"Unknown",
-        status:"counterfeit"
+        status:"counterfeit",
+        batch:"XYZ-0000-FAKE",
+        expiry:"Unknown",
+        dosage:"Do not use an unverified medicine.",
+        foodInstruction:"Not available."
     }
 
 };
@@ -848,95 +908,95 @@ function stopCamera(){
 function scanMedicine(code){
 
     stopCamera();
-
     showScreen("result");
 
-    const medicine =
-        medicines[code];
-
-    const box =
-        document.getElementById("resultBox");
+    const medicine = medicines[code];
+    const box = document.getElementById("resultBox");
 
     if(!medicine){
-
         box.innerHTML =
         `<div class="danger">
             ❌ QR Code Not Recognised
         </div>
-
         <div class="card">
             <b>Scanned Code</b>
             <p>${escapeHTML(code)}</p>
+            <p style="color:#68778b;font-size:13px">
+                This demo code is not present in the registry.
+            </p>
         </div>`;
-
         return;
     }
 
+    // Expiry is calculated from the demo database.
+    const expired = medicine.expiry !== "Unknown" &&
+        new Date(medicine.expiry + "T23:59:59") < new Date();
 
-    if(medicine.status==="verified"){
-
-        box.innerHTML =
-        `<div class="success">
-            <h3>✓ Medicine Verified</h3>
-            <p>Demo verification successful.</p>
-        </div>
-
-        <div class="card">
-
-            <b>Medicine</b>
-            <p>${medicine.name}</p>
-
-            <br>
-
-            <b>Manufacturer</b>
-            <p>${medicine.manufacturer}</p>
-
-            <br>
-
-            <b>QR Code</b>
-            <p>${code}</p>
-
-        </div>
-
-        <button class="primary full"
-                onclick="showScreen('store')">
-            🏪 Open Demo Store
-        </button>`;
-
-        return;
-    }
-
-
-    if(medicine.status==="recalled"){
-
+    if(medicine.status === "recalled"){
         box.innerHTML =
         `<div class="warning">
-            ⚠️ Recalled Demo Product
+            ⚠️ RECALLED DEMO PRODUCT
         </div>
-
         <div class="card">
-            <b>${medicine.name}</b>
-            <p>${medicine.manufacturer}</p>
-            <p>This is demonstration data only.</p>
+            <div class="info-row"><b>Medicine</b><br>${medicine.name}</div>
+            <div class="info-row"><b>Manufacturer</b><br>${medicine.manufacturer}</div>
+            <div class="info-row"><b>Expiry Date</b><br>${medicine.expiry}</div>
+            <div class="info-row"><b>Safety</b><br>Do not use a recalled product; consult a qualified pharmacist/doctor.</div>
         </div>`;
-
         return;
     }
 
+    if(medicine.status === "counterfeit"){
+        box.innerHTML =
+        `<div class="danger">
+            ❌ COUNTERFEIT / UNVERIFIED DEMO CODE
+        </div>
+        <div class="card">
+            <div class="info-row"><b>Scanned Code</b><br>${escapeHTML(code)}</div>
+            <div class="info-row"><b>Medicine</b><br>${medicine.name}</div>
+            <p style="font-size:13px;color:#68778b">
+                Do not rely on this prototype as proof of authenticity.
+            </p>
+        </div>`;
+        return;
+    }
+
+    if(expired){
+        box.innerHTML =
+        `<div class="danger">
+            ⚠️ EXPIRED MEDICINE
+        </div>
+        <div class="card">
+            <div class="info-row"><b>Medicine</b><br>${medicine.name}</div>
+            <div class="info-row"><b>Batch</b><br>${medicine.batch}</div>
+            <div class="info-row"><b>Expiry Date</b><br>${medicine.expiry}</div>
+            <p>Do not use an expired medicine. Ask a qualified pharmacist/doctor what to do.</p>
+        </div>`;
+        return;
+    }
 
     box.innerHTML =
-    `<div class="danger">
-        ❌ Counterfeit / Unknown Demo Code
+    `<div class="success">
+        <h3>✓ Medicine Verified — Demo</h3>
+        <p>The batch is present in the demo registry and is not expired.</p>
     </div>
 
     <div class="card">
-        <b>Warning</b>
-        <p>
-            This demonstration code is marked
-            as counterfeit.
+        <div class="info-row"><b>Medicine</b><br>${medicine.name}</div>
+        <div class="info-row"><b>Manufacturer</b><br>${medicine.manufacturer}</div>
+        <div class="info-row"><b>Batch / QR Code</b><br>${medicine.batch}</div>
+        <div class="info-row"><b>Expiry Date</b><br>✅ ${medicine.expiry} — Not expired</div>
+        <div class="info-row"><b>💊 Dose</b><br>${medicine.dosage}</div>
+        <div class="info-row"><b>🍽️ Food timing</b><br>${medicine.foodInstruction}</div>
+        <p style="font-size:12px;color:#68778b;margin-bottom:0">
+            Safety note: personalized dosing should come from the actual prescription,
+            medicine label, or a qualified healthcare professional.
         </p>
-    </div>`;
+    </div>
 
+    <button class="primary full" onclick="showScreen('store')">
+        🏪 Open Demo Store
+    </button>`;
 }
 
 
@@ -1290,10 +1350,116 @@ function escapeHTML(text){
 
 
 /* =========================
+   SOS + DOCTOR FINDER
+========================= */
+
+const doctors = [
+    {name:"Dr. A. Sharma", specialty:"General Physician", distance:"1.2 km", availability:"Available"},
+    {name:"Dr. R. Mehta", specialty:"Pediatrician", distance:"2.1 km", availability:"Available"},
+    {name:"Dr. S. Khan", specialty:"ENT Specialist", distance:"2.8 km", availability:"Busy"},
+    {name:"Dr. P. Verma", specialty:"Dermatologist", distance:"3.4 km", availability:"Available"},
+    {name:"Dr. N. Gupta", specialty:"Cardiologist", distance:"4.0 km", availability:"Available"}
+];
+
+function filterDoctors(){
+
+    const select = document.getElementById("specialtySelect");
+    const list = document.getElementById("doctorList");
+
+    if(!select || !list) return;
+
+    const selected = select.value;
+
+    const filtered = selected === "All"
+        ? doctors
+        : doctors.filter(d => d.specialty === selected);
+
+    list.innerHTML = filtered.map((doctor,index) => `
+        <div class="doctor-card">
+            <div class="doctor-top">
+                <div>
+                    <b>${doctor.name}</b>
+                    <div style="font-size:13px;color:#68778b;margin-top:4px">
+                        ${doctor.specialty}
+                    </div>
+                    <div style="font-size:12px;color:#68778b;margin-top:5px">
+                        📍 ${doctor.distance}
+                    </div>
+                </div>
+                <span class="badge ${doctor.availability === "Available" ? "available" : "busy"}">
+                    ${doctor.availability}
+                </span>
+            </div>
+            <button class="secondary full" onclick="alert('Demo doctor profile: ${doctor.name}\\nSpeciality: ${doctor.specialty}\\nDistance: ${doctor.distance}')">
+                View Profile
+            </button>
+        </div>
+    `).join("");
+}
+
+function triggerSOS(){
+
+    const result = document.getElementById("sosResult");
+
+    result.innerHTML = `
+        <div class="warning" style="margin-top:12px">
+            📍 Requesting location permission...
+        </div>`;
+
+    if(!navigator.geolocation){
+        result.innerHTML = `
+            <div class="error">
+                GPS is not supported by this browser.
+            </div>`;
+        return;
+    }
+
+    navigator.geolocation.getCurrentPosition(
+        position => {
+
+            const nearest = doctors[0];
+
+            result.innerHTML = `
+                <div class="success" style="margin-top:12px">
+                    <b>🆘 DEMO SOS ALERT CREATED</b>
+                    <p style="margin:8px 0">
+                        📍 Location captured: ${position.coords.latitude.toFixed(4)},
+                        ${position.coords.longitude.toFixed(4)}
+                    </p>
+                    <p style="margin:8px 0">
+                        👨‍⚕️ Nearest demo responder:
+                        <b>${nearest.name}</b> (${nearest.distance})
+                    </p>
+                    <p style="margin:8px 0">
+                        📨 Status: <b>Demo alert sent</b>
+                    </p>
+                    <small>This prototype does not contact a real doctor or emergency service.</small>
+                </div>`;
+
+        },
+        () => {
+
+            result.innerHTML = `
+                <div class="warning" style="margin-top:12px">
+                    📍 Location permission was not granted.<br>
+                    Demo SOS was not sent to any real service.
+                </div>`;
+
+        },
+        {
+            enableHighAccuracy:true,
+            timeout:10000,
+            maximumAge:0
+        }
+    );
+}
+
+/* =========================
    START APP
 ========================= */
 
 showScreen("home");
+filterDoctors();
 
 </script>
 
