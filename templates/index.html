@@ -2,68 +2,137 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="viewport"
+      content="width=device-width, initial-scale=1.0,
+      maximum-scale=1.0,user-scalable=no">
+
 <title>MedVerify</title>
 
 <style>
 *{
     box-sizing:border-box;
+    -webkit-tap-highlight-color:transparent;
 }
 
-body{
+html,body{
     margin:0;
+    padding:0;
     font-family:Arial,Helvetica,sans-serif;
     background:#f4f7fb;
     color:#172033;
 }
 
-header{
-    background:#0b6bcb;
-    color:white;
-    padding:18px;
-    position:sticky;
-    top:0;
-    z-index:10;
+body{
+    padding-bottom:78px;
 }
 
-.header-inner{
-    max-width:1000px;
-    margin:auto;
+button,
+input,
+select{
+    font:inherit;
+}
+
+button{
+    border:0;
+    cursor:pointer;
+}
+
+.topbar{
+    position:sticky;
+    top:0;
+    z-index:100;
+    background:#0b6bcb;
+    color:white;
+    padding:15px 16px;
+    box-shadow:0 3px 12px rgba(0,0,0,.12);
+}
+
+.topbar-inner{
     display:flex;
     justify-content:space-between;
     align-items:center;
 }
 
 .logo{
-    font-size:22px;
-    font-weight:bold;
+    font-size:21px;
+    font-weight:800;
 }
 
-.container{
-    max-width:1000px;
+.top-sub{
+    font-size:11px;
+    opacity:.9;
+}
+
+.screen{
+    display:none;
+    max-width:700px;
     margin:auto;
-    padding:20px;
+    padding:15px;
+}
+
+.screen.active{
+    display:block;
 }
 
 .card{
     background:white;
     border-radius:18px;
-    padding:20px;
-    margin-bottom:18px;
-    box-shadow:0 5px 20px rgba(0,0,0,.07);
+    padding:17px;
+    margin-bottom:14px;
+    box-shadow:0 4px 18px rgba(20,40,70,.07);
 }
 
-h1,h2,h3{
+.hero{
+    background:linear-gradient(135deg,#0b6bcb,#1685e8);
+    color:white;
+    border-radius:22px;
+    padding:22px;
+    margin-bottom:15px;
+}
+
+.hero h1{
+    margin:0 0 8px;
+    font-size:25px;
+}
+
+.hero p{
+    margin:0;
+    font-size:13px;
+    opacity:.9;
+}
+
+h2,h3{
     margin-top:0;
 }
 
-button{
-    border:0;
+.small{
+    color:#697586;
+    font-size:13px;
+    line-height:1.5;
+}
+
+input,
+select{
+    width:100%;
+    padding:13px;
+    border:1px solid #d3dae3;
     border-radius:12px;
-    padding:13px 17px;
-    cursor:pointer;
-    font-weight:bold;
-    margin:5px 3px;
+    background:white;
+    outline:none;
+    margin:7px 0;
+}
+
+input:focus,
+select:focus{
+    border-color:#0b6bcb;
+}
+
+.btn{
+    width:100%;
+    padding:13px;
+    border-radius:12px;
+    margin:5px 0;
+    font-weight:700;
 }
 
 .primary{
@@ -76,38 +145,27 @@ button{
     color:#075ba9;
 }
 
-.danger{
-    background:#d92d20;
-    color:white;
-}
-
 .success{
     background:#16834b;
     color:white;
 }
 
-input,select{
-    width:100%;
-    padding:13px;
-    border:1px solid #ccd5df;
-    border-radius:10px;
-    margin:8px 0;
-    font-size:15px;
+.danger{
+    background:#d92d20;
+    color:white;
 }
 
-#video{
-    width:100%;
-    max-height:350px;
-    object-fit:cover;
-    border-radius:15px;
-    background:#111;
-    display:none;
+.dark{
+    background:#172033;
+    color:white;
 }
 
 .result{
-    padding:16px;
+    padding:15px;
     border-radius:14px;
-    margin-top:15px;
+    margin-top:12px;
+    line-height:1.5;
+    font-size:14px;
 }
 
 .verified{
@@ -115,14 +173,14 @@ input,select{
     border:1px solid #a9dfbd;
 }
 
-.expired{
-    background:#fff0ef;
-    border:1px solid #ffb9b4;
-}
-
 .warning{
     background:#fff7df;
     border:1px solid #f1d67b;
+}
+
+.expired{
+    background:#fff0ef;
+    border:1px solid #ffb9b4;
 }
 
 .info{
@@ -131,8 +189,8 @@ input,select{
 }
 
 .row{
-    padding:10px 0;
-    border-bottom:1px solid #e5e9ef;
+    padding:11px 0;
+    border-bottom:1px solid #e7ebf0;
 }
 
 .row:last-child{
@@ -143,17 +201,54 @@ input,select{
     font-weight:bold;
 }
 
+#video{
+    width:100%;
+    border-radius:15px;
+    margin-top:10px;
+    background:#111;
+    display:none;
+}
+
+.hidden{
+    display:none!important;
+}
+
+/* QUICK ACTIONS */
+
+.quick-grid{
+    display:grid;
+    grid-template-columns:repeat(2,1fr);
+    gap:10px;
+}
+
+.quick{
+    background:white;
+    border:1px solid #e1e7ef;
+    border-radius:16px;
+    padding:16px 10px;
+    text-align:center;
+    font-weight:bold;
+}
+
+.quick-icon{
+    display:block;
+    font-size:27px;
+    margin-bottom:7px;
+}
+
+/* DOCTORS */
+
 .doctor-grid{
     display:grid;
-    grid-template-columns:repeat(auto-fit,minmax(230px,1fr));
-    gap:12px;
+    grid-template-columns:1fr;
+    gap:11px;
 }
 
 .doctor{
-    border:1px solid #dce3eb;
+    border:1px solid #dfe6ee;
     border-radius:15px;
     padding:15px;
-    background:#fafcff;
+    background:#fbfdff;
 }
 
 .available{
@@ -166,209 +261,687 @@ input,select{
     font-weight:bold;
 }
 
-.sos{
+/* STORE */
+
+.product{
+    border:1px solid #e1e6ed;
+    border-radius:16px;
+    padding:15px;
+    margin-bottom:11px;
+    background:white;
+}
+
+.product-icon{
+    font-size:35px;
+}
+
+.product-top{
+    display:flex;
+    gap:12px;
+    align-items:center;
+}
+
+.product-name{
+    font-weight:bold;
+    font-size:16px;
+}
+
+.product-price{
+    font-weight:bold;
+    color:#0b6bcb;
+    margin-top:4px;
+}
+
+.qty{
+    display:flex;
+    align-items:center;
+    gap:10px;
+    margin-top:10px;
+}
+
+.qty button{
+    width:35px;
+    height:35px;
+    border-radius:10px;
+    background:#eaf3ff;
+    color:#075ba9;
+    font-weight:bold;
+}
+
+.cart-item{
+    padding:14px 0;
+    border-bottom:1px solid #e5e9ef;
+}
+
+.cart-total{
+    font-size:20px;
+    font-weight:bold;
+    margin:15px 0;
+}
+
+/* PROFILE */
+
+.profile-head{
+    text-align:center;
+    padding:15px;
+}
+
+.avatar{
+    width:70px;
+    height:70px;
+    border-radius:50%;
+    background:#eaf3ff;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    margin:auto;
+    font-size:35px;
+}
+
+/* BOTTOM NAV */
+
+.bottom-nav{
+    position:fixed;
+    left:0;
+    right:0;
+    bottom:0;
+    height:70px;
+    background:white;
+    border-top:1px solid #e1e6ec;
+    display:flex;
+    justify-content:space-around;
+    align-items:center;
+    z-index:200;
+    box-shadow:0 -3px 15px rgba(0,0,0,.08);
+}
+
+.nav-btn{
+    background:none;
+    color:#778394;
+    font-size:11px;
+    text-align:center;
+    padding:7px 9px;
+}
+
+.nav-btn span{
+    display:block;
+    font-size:22px;
+    margin-bottom:2px;
+}
+
+.nav-btn.active{
+    color:#0b6bcb;
+    font-weight:bold;
+}
+
+/* SOS */
+
+.sos-card{
     background:#fff0ef;
     border:1px solid #ffc8c4;
 }
 
-.small{
-    font-size:13px;
-    color:#667085;
-}
+/* DESKTOP */
 
-.hidden{
-    display:none;
-}
+@media(min-width:700px){
 
-footer{
-    text-align:center;
-    color:#7b8794;
-    padding:25px;
-    font-size:13px;
+    .quick-grid{
+        grid-template-columns:repeat(4,1fr);
+    }
+
+    .doctor-grid{
+        grid-template-columns:repeat(2,1fr);
+    }
+
+    .screen{
+        padding:25px;
+    }
+
 }
 </style>
 </head>
 
 <body>
 
-<header>
-    <div class="header-inner">
-        <div class="logo">💊 MedVerify</div>
-        <div>Medicine Safety Demo</div>
+<!-- TOP BAR -->
+<header class="topbar">
+    <div class="topbar-inner">
+        <div>
+            <div class="logo">💊 MedVerify</div>
+            <div class="top-sub">Medicine Safety Platform</div>
+        </div>
+
+        <div>
+            🛒 <span id="cartCount">0</span>
+        </div>
     </div>
 </header>
 
-<div class="container">
 
-    <!-- HOME -->
+<!-- ================= HOME ================= -->
+
+<section id="home" class="screen active">
+
+    <div class="hero">
+        <h1>Medicine Safety</h1>
+        <p>
+            Verify medicines, check expiry, find doctors
+            and access safety tools.
+        </p>
+    </div>
+
+
     <div class="card">
-        <h1>🔎 Verify Your Medicine</h1>
+
+        <h2>🔎 Verify Medicine</h2>
 
         <p class="small">
-            Enter a demo batch/code or scan a QR code to check verification,
-            expiry and food-timing information.
+            Enter a demo medicine code or scan its QR code.
         </p>
 
         <input
             id="medicineCode"
-            placeholder="Enter medicine code e.g. PCM-0087-SAFE"
+            placeholder="Example: PCM-0087-SAFE"
         >
 
-        <button class="primary" onclick="checkMedicine()">
-            🔍 Check Medicine
+        <button
+            class="btn primary"
+            onclick="checkMedicine()">
+            🔍 Verify Medicine
         </button>
 
-        <button class="secondary" onclick="startScanner()">
-            📷 Scan QR
+        <button
+            class="btn secondary"
+            onclick="startScanner()">
+            📷 Scan QR Code
         </button>
 
-        <video id="video" autoplay playsinline></video>
+        <video
+            id="video"
+            autoplay
+            playsinline>
+        </video>
 
         <button
             id="stopButton"
-            class="danger hidden"
+            class="btn danger hidden"
             onclick="stopScanner()">
             Stop Camera
         </button>
 
         <div id="scanMessage"></div>
-
         <div id="medicineResult"></div>
+
     </div>
 
 
-    <!-- EXPIRY CHECK -->
+    <div class="quick-grid">
+
+        <button
+            class="quick"
+            onclick="showScreen('expiry')">
+            <span class="quick-icon">📅</span>
+            Expiry Check
+        </button>
+
+        <button
+            class="quick"
+            onclick="showScreen('doctor')">
+            <span class="quick-icon">👨‍⚕️</span>
+            Find Doctor
+        </button>
+
+        <button
+            class="quick"
+            onclick="showScreen('store')">
+            <span class="quick-icon">🏪</span>
+            Store
+        </button>
+
+        <button
+            class="quick"
+            onclick="showScreen('sos')">
+            <span class="quick-icon">🆘</span>
+            SOS
+        </button>
+
+    </div>
+
+</section>
+
+
+<!-- ================= EXPIRY ================= -->
+
+<section id="expiry" class="screen">
+
     <div class="card">
-        <h2>📅 Medicine Expiry Checker</h2>
+
+        <h2>📅 Medicine Expiry Check</h2>
 
         <p class="small">
-            Enter the expiry date printed on the medicine package.
+            Enter the expiry date printed on the package.
         </p>
 
-        <input type="date" id="expiryDate">
+        <input
+            type="date"
+            id="expiryDate">
 
-        <button class="primary" onclick="checkExpiryDate()">
+        <button
+            class="btn primary"
+            onclick="checkExpiryDate()">
             Check Expiry
         </button>
 
         <div id="expiryResult"></div>
+
     </div>
 
 
-    <!-- DOCTOR FINDER -->
     <div class="card">
+
+        <h3>ℹ️ How it works</h3>
+
+        <p class="small">
+            MedVerify compares the entered date with today's date.
+            For a real medicine, always check the actual package
+            and manufacturer information.
+        </p>
+
+    </div>
+
+</section>
+
+
+<!-- ================= DOCTOR ================= -->
+
+<section id="doctor" class="screen">
+
+    <div class="card">
+
         <h2>👨‍⚕️ Find a Doctor</h2>
 
         <p class="small">
-            Demo doctor directory. It does not book appointments or contact doctors.
+            Choose a speciality to view demo doctors.
         </p>
 
-        <select id="specialty" onchange="showDoctors()">
-            <option value="All">All Specialities</option>
-            <option value="General Physician">General Physician</option>
-            <option value="Pediatrician">Pediatrician</option>
-            <option value="ENT Specialist">ENT Specialist</option>
-            <option value="Dermatologist">Dermatologist</option>
-            <option value="Cardiologist">Cardiologist</option>
+        <select
+            id="specialty"
+            onchange="showDoctors()">
+
+            <option value="All">
+                All Specialities
+            </option>
+
+            <option value="General Physician">
+                General Physician
+            </option>
+
+            <option value="Pediatrician">
+                Pediatrician
+            </option>
+
+            <option value="ENT Specialist">
+                ENT Specialist
+            </option>
+
+            <option value="Dermatologist">
+                Dermatologist
+            </option>
+
+            <option value="Cardiologist">
+                Cardiologist
+            </option>
+
         </select>
 
-        <div id="doctorList" class="doctor-grid"></div>
     </div>
 
+    <div
+        id="doctorList"
+        class="doctor-grid">
+    </div>
 
-    <!-- SOS -->
-    <div class="card sos">
-        <h2>🆘 Medical Emergency SOS</h2>
+</section>
+
+
+<!-- ================= SOS ================= -->
+
+<section id="sos" class="screen">
+
+    <div class="card sos-card">
+
+        <h2>🆘 Medical SOS</h2>
 
         <p class="small">
-            Demo only. This button does not contact a real doctor,
+            This is a demonstration feature.
+            It does not contact a real doctor,
             ambulance or emergency service.
         </p>
 
-        <button class="danger" onclick="sendSOS()">
+        <button
+            class="btn danger"
+            onclick="sendSOS()">
             🚨 SEND DEMO SOS
         </button>
 
         <div id="sosResult"></div>
+
     </div>
 
 
-    <!-- SAFETY -->
     <div class="card">
-        <h2>⚠️ Important</h2>
+
+        <h3>⚠️ Emergency Notice</h3>
 
         <p class="small">
-            MedVerify is a demonstration project. Always check the actual
-            medicine label, prescription or ask a qualified doctor/pharmacist
-            for real medicine instructions.
+            In a real emergency, contact your local emergency
+            service or a trusted adult immediately.
         </p>
+
     </div>
 
-</div>
+</section>
 
-<footer>
-    MedVerify © 2026 — Demo / Educational Project
-</footer>
+
+<!-- ================= STORE ================= -->
+
+<section id="store" class="screen">
+
+    <div class="card">
+
+        <h2>🏪 MedVerify Store</h2>
+
+        <p class="small">
+            Demo product catalogue only. No real medicine
+            purchase or payment is processed here.
+        </p>
+
+    </div>
+
+    <div id="productList"></div>
+
+</section>
+
+
+<!-- ================= CART ================= -->
+
+<section id="cart" class="screen">
+
+    <div class="card">
+
+        <h2>🛒 Your Cart</h2>
+
+        <div id="cartItems"></div>
+
+        <div
+            id="cartTotal"
+            class="cart-total">
+            Total: ₹0
+        </div>
+
+        <button
+            class="btn primary"
+            onclick="openCheckout()">
+            Continue to Demo Checkout
+        </button>
+
+    </div>
+
+</section>
+
+
+<!-- ================= CHECKOUT ================= -->
+
+<section id="checkout" class="screen">
+
+    <div class="card">
+
+        <h2>💳 Demo Checkout</h2>
+
+        <p class="small">
+            This is only a UI demonstration.
+            No real payment is processed.
+        </p>
+
+        <input
+            placeholder="Demo name">
+
+        <input
+            placeholder="Demo delivery address">
+
+        <select>
+            <option>Demo UPI</option>
+            <option>Demo Card</option>
+            <option>Cash on Demo Delivery</option>
+        </select>
+
+        <button
+            class="btn success"
+            onclick="demoPayment()">
+            ✅ Complete Demo Payment
+        </button>
+
+        <div id="paymentResult"></div>
+
+    </div>
+
+</section>
+
+
+<!-- ================= PROFILE ================= -->
+
+<section id="profile" class="screen">
+
+    <div class="card profile-head">
+
+        <div class="avatar">
+            👤
+        </div>
+
+        <h2>My Profile</h2>
+
+        <p class="small">
+            MedVerify Demo User
+        </p>
+
+    </div>
+
+
+    <div class="card">
+
+        <div class="row">
+            👤 <b>Account</b>
+        </div>
+
+        <div class="row">
+            🔐 Privacy & Security
+        </div>
+
+        <div class="row">
+            📋 Verification History
+        </div>
+
+        <div class="row">
+            ⚙️ Settings
+        </div>
+
+        <div class="row">
+            ℹ️ About MedVerify
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- ================= BOTTOM NAV ================= -->
+
+<nav class="bottom-nav">
+
+    <button
+        class="nav-btn active"
+        data-screen="home"
+        onclick="showScreen('home')">
+        <span>🏠</span>
+        Home
+    </button>
+
+    <button
+        class="nav-btn"
+        data-screen="doctor"
+        onclick="showScreen('doctor')">
+        <span>👨‍⚕️</span>
+        Doctor
+    </button>
+
+    <button
+        class="nav-btn"
+        data-screen="store"
+        onclick="showScreen('store')">
+        <span>🏪</span>
+        Store
+    </button>
+
+    <button
+        class="nav-btn"
+        data-screen="cart"
+        onclick="showScreen('cart')">
+        <span>🛒</span>
+        Cart
+    </button>
+
+    <button
+        class="nav-btn"
+        data-screen="profile"
+        onclick="showScreen('profile')">
+        <span>👤</span>
+        Profile
+    </button>
+
+</nav>
 
 
 <script>
 
-/* =========================
-   DEMO MEDICINE DATABASE
-========================= */
+/* ==================================================
+   MEDICINE DATABASE
+================================================== */
 
 const medicines = {
 
-    "PCM-0087-SAFE": {
-        name: "Paracetamol 650mg",
-        manufacturer: "NatWell Pharma",
-        batch: "PCM-0087-SAFE",
-        expiry: "2028-10-01",
-        status: "verified",
-        food: "Follow the medicine label or prescription for whether it should be taken before or after food.",
-        dose: "Follow the dose written on the prescription or medicine label."
+    "PCM-0087-SAFE":{
+        name:"Paracetamol 650mg",
+        manufacturer:"NatWell Pharma",
+        batch:"PCM-0087-SAFE",
+        expiry:"2028-10-01",
+        status:"verified",
+
+        food:
+        "Check the actual medicine label or prescription for before/after-food instructions.",
+
+        dose:
+        "Follow the dose written on the prescription or medicine label."
     },
 
-    "AMX-2291-GEN": {
-        name: "Amoxicillin 500mg",
-        manufacturer: "GenPharma Ltd.",
-        batch: "AMX-2291-GEN",
-        expiry: "2028-12-01",
-        status: "verified",
-        food: "Check the medicine label or prescription for the correct before/after-food instruction.",
-        dose: "Follow the dose written on the prescription or medicine label."
+    "AMX-2291-GEN":{
+        name:"Amoxicillin 500mg",
+        manufacturer:"GenPharma Ltd.",
+        batch:"AMX-2291-GEN",
+        expiry:"2028-12-01",
+        status:"verified",
+
+        food:
+        "Check the actual medicine label or prescription for before/after-food instructions.",
+
+        dose:
+        "Follow the dose written on the prescription or medicine label."
     },
 
-    "INS-4410-RCL": {
-        name: "Sample Medicine",
-        manufacturer: "Demo Pharma",
-        batch: "INS-4410-RCL",
-        expiry: "2027-06-01",
-        status: "recalled",
-        food: "Not applicable for this recalled demo product.",
-        dose: "Do not use a recalled demo product. Follow official guidance."
+    "INS-4410-RCL":{
+        name:"Sample Medicine",
+        manufacturer:"Demo Pharma",
+        batch:"INS-4410-RCL",
+        expiry:"2027-06-01",
+        status:"recalled",
+
+        food:
+        "Not applicable for this recalled demo product.",
+
+        dose:
+        "Do not use a recalled product; follow official guidance."
     },
 
-    "XYZ-0000-FAKE": {
-        name: "Unknown Medicine",
-        manufacturer: "Unknown",
-        batch: "XYZ-0000-FAKE",
-        expiry: "Unknown",
-        status: "counterfeit",
-        food: "Not available.",
-        dose: "Do not use an unverified medicine."
+    "XYZ-0000-FAKE":{
+        name:"Unknown Medicine",
+        manufacturer:"Unknown",
+        batch:"XYZ-0000-FAKE",
+        expiry:"Unknown",
+        status:"counterfeit",
+
+        food:"Not available.",
+
+        dose:
+        "Do not use an unverified medicine."
     }
 };
 
 
-/* =========================
-   CHECK MEDICINE
-========================= */
+/* ==================================================
+   NAVIGATION
+================================================== */
+
+function showScreen(screenId){
+
+    document
+    .querySelectorAll(".screen")
+    .forEach(screen=>{
+        screen.classList.remove("active");
+    });
+
+    const target =
+        document.getElementById(screenId);
+
+    if(target){
+        target.classList.add("active");
+    }
+
+
+    document
+    .querySelectorAll(".nav-btn")
+    .forEach(btn=>{
+        btn.classList.remove("active");
+
+        if(btn.dataset.screen === screenId){
+            btn.classList.add("active");
+        }
+    });
+
+
+    window.scrollTo({
+        top:0,
+        behavior:"smooth"
+    });
+
+
+    if(screenId === "cart"){
+        renderCart();
+    }
+
+    if(screenId === "store"){
+        renderProducts();
+    }
+}
+
+
+/* ==================================================
+   MEDICINE CHECK
+================================================== */
 
 function checkMedicine(){
 
     const code =
-        document.getElementById("medicineCode")
+        document
+        .getElementById("medicineCode")
         .value
         .trim()
         .toUpperCase();
@@ -376,87 +949,125 @@ function checkMedicine(){
     const result =
         document.getElementById("medicineResult");
 
+
     if(!code){
-        result.innerHTML =
-        `<div class="result warning">
-            Please enter a medicine code.
-        </div>`;
+
+        result.innerHTML=`
+            <div class="result warning">
+                ⚠️ Please enter a medicine code.
+            </div>
+        `;
+
         return;
     }
 
-    const medicine = medicines[code];
+
+    const medicine =
+        medicines[code];
+
 
     if(!medicine){
 
-        result.innerHTML =
-        `<div class="result expired">
-            <h3>❌ Medicine Not Found</h3>
-            <p>
-                This code is not present in the MedVerify demo database.
-            </p>
-            <p>
-                Do not assume a medicine is genuine only because
-                a code is unavailable.
-            </p>
-        </div>`;
+        result.innerHTML=`
+            <div class="result expired">
+
+                <h3>❌ Medicine Not Found</h3>
+
+                <p>
+                    This code is not available in the
+                    MedVerify demo database.
+                </p>
+
+                <p>
+                    An unavailable code does not automatically
+                    mean a medicine is genuine or counterfeit.
+                </p>
+
+            </div>
+        `;
 
         return;
     }
 
-    let expired = false;
+
+    let expired=false;
+
 
     if(medicine.expiry !== "Unknown"){
 
         const expiry =
-            new Date(medicine.expiry + "T23:59:59");
+            new Date(
+                medicine.expiry+"T23:59:59"
+            );
 
-        expired = expiry < new Date();
+        expired =
+            expiry < new Date();
     }
 
 
-    let statusHTML = "";
+    let statusHTML="";
+
 
     if(medicine.status === "recalled"){
 
-        statusHTML =
-        `<div class="result warning">
-            <h3>⚠️ RECALLED DEMO PRODUCT</h3>
-            <p>This demo batch is marked as recalled.</p>
-        </div>`;
+        statusHTML=`
+            <div class="result warning">
+
+                <h3>⚠️ RECALLED DEMO PRODUCT</h3>
+
+                <p>
+                    This demo batch is marked as recalled.
+                </p>
+
+            </div>
+        `;
 
     }else if(medicine.status === "counterfeit"){
 
-        statusHTML =
-        `<div class="result expired">
-            <h3>❌ UNVERIFIED / COUNTERFEIT DEMO</h3>
-            <p>
-                Do not rely on this result as proof of medicine authenticity.
-            </p>
-        </div>`;
+        statusHTML=`
+            <div class="result expired">
+
+                <h3>❌ UNVERIFIED DEMO PRODUCT</h3>
+
+                <p>
+                    Do not use an unverified medicine.
+                </p>
+
+            </div>
+        `;
 
     }else if(expired){
 
-        statusHTML =
-        `<div class="result expired">
-            <h3>🚨 MEDICINE EXPIRED</h3>
-            <p>
-                The expiry date in this demo database has passed.
-            </p>
-        </div>`;
+        statusHTML=`
+            <div class="result expired">
+
+                <h3>🚨 MEDICINE EXPIRED</h3>
+
+                <p>
+                    The expiry date stored in the
+                    demo database has passed.
+                </p>
+
+            </div>
+        `;
 
     }else{
 
-        statusHTML =
-        `<div class="result verified">
-            <h3>✅ DEMO MEDICINE VERIFIED</h3>
-            <p>
-                The code matches a verified demo record.
-            </p>
-        </div>`;
+        statusHTML=`
+            <div class="result verified">
+
+                <h3>✅ DEMO MEDICINE VERIFIED</h3>
+
+                <p>
+                    The code matches a verified demo record.
+                </p>
+
+            </div>
+        `;
     }
 
 
-    result.innerHTML = `
+    result.innerHTML=`
 
         ${statusHTML}
 
@@ -473,103 +1084,139 @@ function checkMedicine(){
             </div>
 
             <div class="row">
-                <span class="label">Batch / Code:</span>
+                <span class="label">Batch:</span>
                 ${medicine.batch}
             </div>
 
             <div class="row">
-                <span class="label">Expiry Date:</span>
+                <span class="label">Expiry:</span>
                 ${medicine.expiry}
             </div>
 
             <div class="row">
                 <span class="label">Expiry Status:</span>
+
                 ${
-                    medicine.expiry === "Unknown"
-                    ? "Unknown"
-                    : expired
-                    ? "❌ Expired"
-                    : "✅ Not expired in demo database"
+                    medicine.expiry==="Unknown"
+                    ?"Unknown"
+                    :expired
+                    ?"❌ Expired"
+                    :"✅ Not Expired"
                 }
+
             </div>
 
             <div class="row">
-                <span class="label">🍽 Food Timing:</span>
+
+                <span class="label">
+                    🍽️ Food Timing:
+                </span>
+
+                <br>
+
                 ${medicine.food}
+
             </div>
 
             <div class="row">
-                <span class="label">💊 Dose:</span>
+
+                <span class="label">
+                    💊 Dose Information:
+                </span>
+
+                <br>
+
                 ${medicine.dose}
+
             </div>
 
         </div>
 
         <div class="result warning">
-            <b>Safety note:</b><br>
-            For a real medicine, follow the prescription and
-            package label. If the instructions are unclear,
+
+            <b>⚠️ Safety:</b>
+
+            <br>
+
+            For real medicine, follow the prescription
+            and package label. If instructions are unclear,
             ask a qualified pharmacist or doctor.
+
         </div>
     `;
 }
 
 
-/* =========================
-   EXPIRY DATE CHECKER
-========================= */
+/* ==================================================
+   EXPIRY CHECK
+================================================== */
 
 function checkExpiryDate(){
 
     const value =
-        document.getElementById("expiryDate").value;
+        document
+        .getElementById("expiryDate")
+        .value;
 
     const result =
         document.getElementById("expiryResult");
 
+
     if(!value){
 
-        result.innerHTML =
-        `<div class="result warning">
-            Please select an expiry date.
-        </div>`;
+        result.innerHTML=`
+            <div class="result warning">
+                Please select an expiry date.
+            </div>
+        `;
 
         return;
     }
 
-    const expiry =
-        new Date(value + "T23:59:59");
 
-    const today = new Date();
+    const expiry =
+        new Date(value+"T23:59:59");
+
+    const today =
+        new Date();
+
 
     if(expiry < today){
 
-        result.innerHTML =
-        `<div class="result expired">
-            <h3>❌ EXPIRED</h3>
-            <p>
-                The entered expiry date has already passed.
-            </p>
-        </div>`;
+        result.innerHTML=`
+            <div class="result expired">
+
+                <h3>❌ EXPIRED</h3>
+
+                <p>
+                    The entered expiry date has passed.
+                </p>
+
+            </div>
+        `;
 
     }else{
 
-        result.innerHTML =
-        `<div class="result verified">
-            <h3>✅ NOT EXPIRED</h3>
-            <p>
-                The entered expiry date has not passed yet.
-            </p>
-        </div>`;
+        result.innerHTML=`
+            <div class="result verified">
+
+                <h3>✅ NOT EXPIRED</h3>
+
+                <p>
+                    The entered expiry date has not passed.
+                </p>
+
+            </div>
+        `;
     }
 }
 
 
-/* =========================
+/* ==================================================
    DOCTORS
-========================= */
+================================================== */
 
-const doctors = [
+const doctors=[
 
     {
         name:"Dr. A. Sharma",
@@ -611,44 +1258,50 @@ const doctors = [
 function showDoctors(){
 
     const selected =
-        document.getElementById("specialty").value;
+        document
+        .getElementById("specialty")
+        .value;
 
     const list =
         document.getElementById("doctorList");
 
+
     const filtered =
-        selected === "All"
-        ? doctors
-        : doctors.filter(
-            doctor => doctor.specialty === selected
+        selected==="All"
+        ?doctors
+        :doctors.filter(
+            d=>d.specialty===selected
         );
 
 
-    list.innerHTML = filtered.map(doctor => `
+    list.innerHTML =
+        filtered.map(d=>`
 
         <div class="doctor">
 
-            <h3>👨‍⚕️ ${doctor.name}</h3>
+            <h3>👨‍⚕️ ${d.name}</h3>
 
             <p>
                 <b>Speciality:</b>
-                ${doctor.specialty}
+                ${d.specialty}
             </p>
 
             <p>
-                📍 ${doctor.distance}
+                📍 ${d.distance}
             </p>
 
             <p class="${
-                doctor.availability === "Available"
-                ? "available"
-                : "busy"
+                d.availability==="Available"
+                ?"available"
+                :"busy"
             }">
+
                 ${
-                    doctor.availability === "Available"
-                    ? "🟢 Available"
-                    : "🟡 Busy"
+                    d.availability==="Available"
+                    ?"🟢 Available"
+                    :"🟡 Busy"
                 }
+
             </p>
 
         </div>
@@ -657,27 +1310,32 @@ function showDoctors(){
 }
 
 
-/* =========================
-   DEMO SOS
-========================= */
+/* ==================================================
+   SOS
+================================================== */
 
 function sendSOS(){
 
     const result =
         document.getElementById("sosResult");
 
-    result.innerHTML =
-    `<div class="result info">
-        <h3>📍 Requesting Location...</h3>
-        <p>This is a demo and will not contact a real service.</p>
-    </div>`;
+
+    result.innerHTML=`
+        <div class="result info">
+
+            📍 Requesting demo location...
+
+        </div>
+    `;
+
 
     if(!navigator.geolocation){
 
-        result.innerHTML =
-        `<div class="result warning">
-            Location is not supported by this browser.
-        </div>`;
+        result.innerHTML=`
+            <div class="result warning">
+                Location is not supported by this browser.
+            </div>
+        `;
 
         return;
     }
@@ -693,51 +1351,57 @@ function sendSOS(){
             const lon =
                 position.coords.longitude.toFixed(5);
 
-            result.innerHTML =
-            `<div class="result verified">
 
-                <h3>✅ Demo SOS Created</h3>
+            result.innerHTML=`
+                <div class="result verified">
 
-                <p>
-                    📍 Location captured:
-                    ${lat}, ${lon}
-                </p>
+                    <h3>✅ Demo SOS Created</h3>
 
-                <p>
-                    👨‍⚕️ Demo responder:
-                    Dr. A. Sharma
-                </p>
+                    <p>
+                        📍 Location:
+                        ${lat}, ${lon}
+                    </p>
 
-                <p class="small">
-                    This does NOT send a real emergency alert.
-                </p>
+                    <p>
+                        👨‍⚕️ Demo responder:
+                        Dr. A. Sharma
+                    </p>
 
-            </div>`;
+                    <p class="small">
+                        This is only a demonstration.
+                        No real emergency alert was sent.
+                    </p>
+
+                </div>
+            `;
         },
 
         function(){
 
-            result.innerHTML =
-            `<div class="result warning">
+            result.innerHTML=`
+                <div class="result warning">
 
-                <h3>⚠️ Location Permission Required</h3>
+                    <h3>⚠️ Location Permission</h3>
 
-                <p>
-                    Allow location access to test the demo SOS feature.
-                </p>
+                    <p>
+                        Allow location access to test
+                        the demo SOS.
+                    </p>
 
-            </div>`;
+                </div>
+            `;
         }
     );
 }
 
 
-/* =========================
+/* ==================================================
    QR SCANNER
-========================= */
+================================================== */
 
-let stream = null;
-let scanning = false;
+let stream=null;
+let scanning=false;
+
 
 const video =
     document.getElementById("video");
@@ -754,9 +1418,11 @@ function loadQRLibrary(){
     return new Promise((resolve,reject)=>{
 
         if(window.jsQR){
+
             resolve();
             return;
         }
+
 
         const script =
             document.createElement("script");
@@ -764,9 +1430,8 @@ function loadQRLibrary(){
         script.src =
         "https://cdn.jsdelivr.net/npm/jsqr@1.4.0/dist/jsQR.js";
 
-        script.onload = resolve;
-
-        script.onerror = reject;
+        script.onload=resolve;
+        script.onerror=reject;
 
         document.head.appendChild(script);
     });
@@ -778,55 +1443,85 @@ async function startScanner(){
     const message =
         document.getElementById("scanMessage");
 
+
     try{
 
         await loadQRLibrary();
 
+
+        if(!navigator.mediaDevices){
+
+            throw new Error("Camera unavailable");
+        }
+
+
         stream =
-        await navigator.mediaDevices.getUserMedia({
-            video:{
-                facingMode:"environment"
-            },
-            audio:false
-        });
+            await navigator.mediaDevices.getUserMedia({
 
-        video.srcObject = stream;
+                video:{
+                    facingMode:{
+                        ideal:"environment"
+                    }
+                },
 
-        video.style.display = "block";
+                audio:false
+            });
+
+
+        video.srcObject=stream;
+
+        video.style.display="block";
+
 
         document
         .getElementById("stopButton")
         .classList.remove("hidden");
 
-        scanning = true;
 
-        message.innerHTML =
-        `<div class="result info">
-            📷 Camera started. Point it at the demo QR code.
-        </div>`;
+        scanning=true;
+
+
+        message.innerHTML=`
+            <div class="result info">
+                📷 Camera started.
+                Point it at the QR code.
+            </div>
+        `;
+
 
         scanFrame();
 
+
     }catch(error){
 
-        message.innerHTML =
-        `<div class="result expired">
-            ❌ Camera could not be started.
-            Please allow camera permission or use the manual code box.
-        </div>`;
+        message.innerHTML=`
+            <div class="result expired">
+
+                ❌ Camera could not be started.
+
+                <br><br>
+
+                Allow camera permission or enter
+                the code manually.
+
+            </div>
+        `;
     }
 }
 
 
 function scanFrame(){
 
-    if(!scanning) return;
+    if(!scanning){
+        return;
+    }
+
 
     if(video.readyState === video.HAVE_ENOUGH_DATA){
 
-        canvas.width = video.videoWidth;
+        canvas.width=video.videoWidth;
+        canvas.height=video.videoHeight;
 
-        canvas.height = video.videoHeight;
 
         ctx.drawImage(
             video,
@@ -836,6 +1531,7 @@ function scanFrame(){
             canvas.height
         );
 
+
         const imageData =
             ctx.getImageData(
                 0,
@@ -844,6 +1540,7 @@ function scanFrame(){
                 canvas.height
             );
 
+
         const code =
             jsQR(
                 imageData.data,
@@ -851,11 +1548,13 @@ function scanFrame(){
                 imageData.height
             );
 
+
         if(code && code.data){
 
             document
             .getElementById("medicineCode")
-            .value = code.data;
+            .value=code.data;
+
 
             stopScanner();
 
@@ -865,24 +1564,30 @@ function scanFrame(){
         }
     }
 
+
     requestAnimationFrame(scanFrame);
 }
 
 
 function stopScanner(){
 
-    scanning = false;
+    scanning=false;
+
 
     if(stream){
 
-        stream.getTracks().forEach(
-            track => track.stop()
-        );
+        stream
+        .getTracks()
+        .forEach(track=>track.stop());
 
-        stream = null;
+        stream=null;
     }
 
-    video.style.display = "none";
+
+    video.srcObject=null;
+
+    video.style.display="none";
+
 
     document
     .getElementById("stopButton")
@@ -890,11 +1595,284 @@ function stopScanner(){
 }
 
 
-/* =========================
-   START
-========================= */
+/* ==================================================
+   DEMO STORE
+================================================== */
+
+const products=[
+
+    {
+        id:1,
+        name:"Medicine Safety Box",
+        price:299,
+        icon:"🧰"
+    },
+
+    {
+        id:2,
+        name:"Digital Thermometer",
+        price:399,
+        icon:"🌡️"
+    },
+
+    {
+        id:3,
+        name:"First Aid Kit",
+        price:499,
+        icon:"🩹"
+    },
+
+    {
+        id:4,
+        name:"Medicine Organizer",
+        price:249,
+        icon:"📦"
+    }
+];
+
+
+let cart=[];
+
+
+function renderProducts(){
+
+    const list =
+        document.getElementById("productList");
+
+
+    list.innerHTML =
+        products.map(product=>`
+
+        <div class="product">
+
+            <div class="product-top">
+
+                <div class="product-icon">
+                    ${product.icon}
+                </div>
+
+                <div>
+
+                    <div class="product-name">
+                        ${product.name}
+                    </div>
+
+                    <div class="product-price">
+                        ₹${product.price}
+                    </div>
+
+                </div>
+
+            </div>
+
+            <button
+                class="btn primary"
+                onclick="addToCart(${product.id})">
+
+                🛒 Add to Cart
+
+            </button>
+
+        </div>
+
+    `).join("");
+}
+
+
+function addToCart(id){
+
+    const product =
+        products.find(p=>p.id===id);
+
+    if(!product){
+        return;
+    }
+
+
+    const existing =
+        cart.find(item=>item.id===id);
+
+
+    if(existing){
+
+        existing.qty++;
+
+    }else{
+
+        cart.push({
+            ...product,
+            qty:1
+        });
+    }
+
+
+    updateCartCount();
+
+    alert("Added to demo cart.");
+}
+
+
+function updateCartCount(){
+
+    const count =
+        cart.reduce(
+            (total,item)=>total+item.qty,
+            0
+        );
+
+
+    document
+    .getElementById("cartCount")
+    .textContent=count;
+}
+
+
+function changeQty(id,change){
+
+    const item =
+        cart.find(i=>i.id===id);
+
+
+    if(!item){
+        return;
+    }
+
+
+    item.qty+=change;
+
+
+    if(item.qty<=0){
+
+        cart =
+            cart.filter(
+                i=>i.id!==id
+            );
+    }
+
+
+    updateCartCount();
+    renderCart();
+}
+
+
+function renderCart(){
+
+    const container =
+        document.getElementById("cartItems");
+
+    const totalBox =
+        document.getElementById("cartTotal");
+
+
+    if(cart.length===0){
+
+        container.innerHTML=`
+            <div class="result info">
+                🛒 Your cart is empty.
+            </div>
+        `;
+
+        totalBox.textContent="Total: ₹0";
+
+        return;
+    }
+
+
+    let total=0;
+
+
+    container.innerHTML =
+        cart.map(item=>{
+
+            total +=
+                item.price*item.qty;
+
+
+            return `
+
+            <div class="cart-item">
+
+                <b>
+                    ${item.icon}
+                    ${item.name}
+                </b>
+
+                <p>
+                    ₹${item.price} × ${item.qty}
+                </p>
+
+                <div class="qty">
+
+                    <button
+                        onclick="changeQty(${item.id},-1)">
+                        −
+                    </button>
+
+                    <b>${item.qty}</b>
+
+                    <button
+                        onclick="changeQty(${item.id},1)">
+                        +
+                    </button>
+
+                </div>
+
+            </div>
+
+            `;
+        }).join("");
+
+
+    totalBox.textContent=
+        "Total: ₹"+total;
+}
+
+
+function openCheckout(){
+
+    if(cart.length===0){
+
+        alert("Your demo cart is empty.");
+
+        return;
+    }
+
+
+    showScreen("checkout");
+}
+
+
+function demoPayment(){
+
+    const result =
+        document.getElementById("paymentResult");
+
+
+    result.innerHTML=`
+        <div class="result verified">
+
+            <h3>✅ Demo Payment Successful</h3>
+
+            <p>
+                This was only a simulated payment.
+            </p>
+
+            <p>
+                No real money was charged.
+            </p>
+
+        </div>
+    `;
+}
+
+
+/* ==================================================
+   INITIALIZE
+================================================== */
 
 showDoctors();
+renderProducts();
+updateCartCount();
 
 </script>
 
