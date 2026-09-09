@@ -239,6 +239,32 @@ nav button.active{
 .info-row{padding:10px 0;border-bottom:1px solid #e5e9ef}
 .info-row:last-child{border-bottom:0}
 
+/* New 2x2 Grid Styling */
+.grid-2x2 {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 12px;
+    margin-top: 15px;
+}
+.grid-btn {
+    width: 100%;
+    min-height: 70px;
+    font-weight: bold;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 5px;
+    color: #fff;
+    padding: 10px;
+    font-size: 14px;
+    text-align: center;
+}
+.btn-sos { background: #d92d20; }
+.btn-diet { background: #087443; }
+.btn-doctor { background: #1769e0; }
+.btn-report { background: #7928ca; }
+
 </style>
 </head>
 
@@ -246,8 +272,8 @@ nav button.active{
 
 <div class="app">
 
-<header>
-    <h1>💊 MedVerify</h1>
+<header>    
+    <img src="https://i.ibb.co/VpzrwnMM/medtech-logo.png" alt="medtech-logo" border="0" style="width:70px;height:auto; background-color: rgba(255, 255, 255, 0.829); border-radius: 10px;">
     <p>Medicine Verification Demo</p>
 </header>
 
@@ -261,6 +287,23 @@ nav button.active{
         <button class="primary full" onclick="showScreen('camera')">
             📷 Open Camera
         </button>
+
+        <!-- 2x2 Grid Buttons -->
+        <div class="grid-2x2">
+            <button class="grid-btn btn-sos" onclick="triggerSOS()">
+                <span>🆘</span> SOS
+            </button>
+            <button class="grid-btn btn-diet" onclick="showScreen('diet')">
+                <span>🥗</span> Hire Diet Master
+            </button>
+            <button class="grid-btn btn-doctor" onclick="showScreen('doctor')">
+                <span>👨‍⚕️</span> Hire Personal Doctor
+            </button>
+            <button class="grid-btn btn-report" onclick="showScreen('report')">
+                <span>📋</span> Report
+            </button>
+        </div>
+        <div id="sosResult"></div>
     </div>
 
     <div class="card">
@@ -273,38 +316,6 @@ nav button.active{
             5. Add items to cart<br>
             6. Continue to demo payment
         </p>
-    </div>
-
-
-    <!-- SOS -->
-    <div class="card sos-card">
-        <h3>🆘 Medical Emergency SOS</h3>
-        <p style="color:#68778b;font-size:13px">
-            Demo feature: requests your location and shows the nearest available
-            demo medical responder. It does not contact a real doctor or emergency service.
-        </p>
-        <button class="sos-button" onclick="triggerSOS()">
-            🚨 SEND SOS ALERT
-        </button>
-        <div id="sosResult"></div>
-    </div>
-
-    <!-- Doctor Finder -->
-    <div class="card">
-        <h3>👨‍⚕️ Find a Doctor</h3>
-        <p style="color:#68778b;font-size:13px">
-            Choose a speciality to view demo nearby doctors.
-        </p>
-        <select id="specialtySelect" onchange="filterDoctors()"
-                style="width:100%;padding:13px;border:1px solid #ccd5df;border-radius:10px;font-size:15px">
-            <option value="All">All Specialities</option>
-            <option value="General Physician">General Physician</option>
-            <option value="Pediatrician">Pediatrician</option>
-            <option value="ENT Specialist">ENT Specialist</option>
-            <option value="Dermatologist">Dermatologist</option>
-            <option value="Cardiologist">Cardiologist</option>
-        </select>
-        <div id="doctorList" class="doctor-grid"></div>
     </div>
 
     <div class="card">
@@ -510,6 +521,95 @@ nav button.active{
 
     </div>
 
+</section>
+
+<!-- HIRE DIET MASTER -->
+<section id="diet" class="screen hidden">
+    <button class="secondary" onclick="showScreen('home')">
+        ← Home
+    </button>
+    <h2>🥗 Hire Diet Master</h2>
+    <p style="font-size:13px;color:#68778b">Choose a professional diet master for personalized guidance (Demo only).</p>
+    
+    <div class="card">
+        <h3>Rahul Diet Master</h3>
+        <p class="price">₹199 / consultation</p>
+        <p style="font-size:13px;color:#68778b">Specialized in weight management and sports nutrition.</p>
+        <button class="primary full" onclick="alert('✅ Demo Request: Rahul Diet Master hired successfully! No real payment processed.')">Hire Diet Master</button>
+    </div>
+
+    <div class="card">
+        <h3>Priya Diet Master</h3>
+        <p class="price">₹399 / consultation</p>
+        <p style="font-size:13px;color:#68778b">Specialized in clinical nutrition and diabetes care.</p>
+        <button class="primary full" onclick="alert('✅ Demo Request: Priya Diet Master hired successfully! No real payment processed.')">Hire Diet Master</button>
+    </div>
+
+    <div class="card">
+        <h3>Ankit Nutrition Expert</h3>
+        <p class="price">₹599 / consultation</p>
+        <p style="font-size:13px;color:#68778b">Specialized in holistic wellness and advanced meal planning.</p>
+        <button class="primary full" onclick="alert('✅ Demo Request: Ankit Nutrition Expert hired successfully! No real payment processed.')">Hire Diet Master</button>
+    </div>
+</section>
+
+<!-- HIRE PERSONAL DOCTOR -->
+<section id="doctor" class="screen hidden">
+    <button class="secondary" onclick="showScreen('home')">
+        ← Home
+    </button>
+    <h2>👨‍⚕️ Hire Personal Doctor</h2>
+    <div class="card">
+        <h3>Find a Doctor</h3>
+        <p style="color:#68778b;font-size:13px">
+            Choose a speciality to view demo nearby doctors and hire them.
+        </p>
+        <select id="specialtySelect" onchange="filterDoctors()"
+                style="width:100%;padding:13px;border:1px solid #ccd5df;border-radius:10px;font-size:15px">
+            <option value="All">All Specialities</option>
+            <option value="General Physician">General Physician</option>
+            <option value="Pediatrician">Pediatrician</option>
+            <option value="ENT Specialist">ENT Specialist</option>
+            <option value="Dermatologist">Dermatologist</option>
+            <option value="Cardiologist">Cardiologist</option>
+        </select>
+        <div id="doctorList" class="doctor-grid"></div>
+    </div>
+</section>
+
+<!-- REPORT -->
+<section id="report" class="screen hidden">
+    <button class="secondary" onclick="showScreen('home')">
+        ← Home
+    </button>
+    <h2>📋 Medicine Report</h2>
+    <div class="card">
+        <p style="font-size:13px;color:#68778b">
+            Prototype only. Does not send a real report to an authority.
+        </p>
+        
+        <label>Medicine Name</label>
+        <input type="text" id="reportMedicineName" placeholder="e.g. Paracetamol">
+
+        <label style="display:block;margin-top:12px">Batch / QR Number</label>
+        <input type="text" id="reportBatchNumber" placeholder="e.g. PCM-0087-SAFE">
+
+        <label style="display:block;margin-top:12px">Report Type</label>
+        <select id="reportType" style="width:100%;padding:13px;border:1px solid #ccd5df;border-radius:10px;font-size:15px;margin-top:7px">
+            <option value="Fake Medicine">Fake Medicine</option>
+            <option value="Expired Medicine">Expired Medicine</option>
+            <option value="Recalled Medicine">Recalled Medicine</option>
+        </select>
+
+        <label style="display:block;margin-top:12px">Reason / Details</label>
+        <input type="text" id="reportReason" placeholder="Enter details or observations">
+
+        <button class="primary full" onclick="submitReport()" style="margin-top:15px">
+            Submit Report
+        </button>
+
+        <div id="reportResult" style="margin-top:15px"></div>
+    </div>
 </section>
 
 <!-- PROFILE -->
@@ -724,6 +824,10 @@ function showScreen(name){
 
     if(name==="cart"){
         renderCart();
+    }
+
+    if(name==="doctor"){
+        filterDoctors();
     }
 
 }
@@ -1390,8 +1494,8 @@ function filterDoctors(){
                     ${doctor.availability}
                 </span>
             </div>
-            <button class="secondary full" onclick="alert('Demo doctor profile: ${doctor.name}\\nSpeciality: ${doctor.specialty}\\nDistance: ${doctor.distance}')">
-                View Profile
+            <button class="primary full" onclick="alert('✅ Demo Request: Personal Doctor ${doctor.name} hired successfully! No real appointment created.')">
+                Hire Doctor
             </button>
         </div>
     `).join("");
@@ -1452,6 +1556,39 @@ function triggerSOS(){
             maximumAge:0
         }
     );
+}
+
+/* =========================
+   REPORT FUNCTIONALITY
+========================= */
+
+function submitReport(){
+    const name = document.getElementById("reportMedicineName").value.trim();
+    const batch = document.getElementById("reportBatchNumber").value.trim();
+    const type = document.getElementById("reportType").value;
+    const reason = document.getElementById("reportReason").value.trim();
+    const reportResult = document.getElementById("reportResult");
+
+    if(!name || !batch){
+        alert("Please enter Medicine Name and Batch / QR Number.");
+        return;
+    }
+
+    const reportId = "REP-" + Math.floor(100000 + Math.random() * 900000);
+
+    reportResult.innerHTML = `
+        <div class="success">
+            <b>✅ Report Submitted Successfully!</b>
+            <div class="info-row" style="margin-top:8px"><b>Report ID</b><br>${escapeHTML(reportId)}</div>
+            <div class="info-row"><b>Medicine Name</b><br>${escapeHTML(name)}</div>
+            <div class="info-row"><b>Batch / QR Number</b><br>${escapeHTML(batch)}</div>
+            <div class="info-row"><b>Report Type</b><br>${escapeHTML(type)}</div>
+            <div class="info-row"><b>Reason / Details</b><br>${escapeHTML(reason || 'None provided')}</div>
+            <p style="font-size:12px;color:#087443;margin-top:8px;margin-bottom:0">
+                Note: This is a prototype/demo and does not send a real report to an authority.
+            </p>
+        </div>
+    `;
 }
 
 /* =========================
