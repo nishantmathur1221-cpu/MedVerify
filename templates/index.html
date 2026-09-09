@@ -3,67 +3,38 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Meditech</title>
+<title>MedVerify</title>
 
+<!-- QR scanner -->
 <script src="https://cdn.jsdelivr.net/npm/jsqr@1.4.0/dist/jsQR.js"></script>
 
 <style>
 *{box-sizing:border-box}
-
 body{
     margin:0;
     font-family:Arial,sans-serif;
     background:#f3f6fa;
     color:#172033;
 }
-
 .app{
     max-width:480px;
     min-height:100vh;
     margin:auto;
     background:#fff;
 }
-
 header{
     background:#102a43;
     color:white;
     padding:20px;
 }
-
-.brand{
-    display:flex;
-    align-items:center;
-    gap:12px;
-}
-
-.brand img{
-    width:46px;
-    height:46px;
-    object-fit:contain;
-    border-radius:10px;
-    background:#fff;
-    padding:3px;
-}
-
-.brand h1{
-    margin:0;
-    font-size:24px;
-}
-
-.brand p{
-    margin:5px 0 0;
-    opacity:.75;
-    font-size:13px;
-}
+header h1{margin:0;font-size:24px}
+header p{margin:5px 0 0;opacity:.75;font-size:13px}
 
 .screen{
     padding:20px;
     padding-bottom:90px;
 }
-
-.hidden{
-    display:none!important;
-}
+.hidden{display:none!important}
 
 .card{
     background:#fff;
@@ -80,15 +51,8 @@ header{
     padding:28px 20px;
     text-align:center;
 }
-
-.hero h2{
-    margin:0 0 8px;
-}
-
-.hero p{
-    color:#607086;
-    font-size:14px;
-}
+.hero h2{margin:0 0 8px}
+.hero p{color:#607086;font-size:14px}
 
 button{
     border:0;
@@ -97,17 +61,14 @@ button{
     font-size:15px;
     cursor:pointer;
 }
-
 .primary{
     background:#1769e0;
     color:white;
 }
-
 .secondary{
     background:#e9eef5;
     color:#172033;
 }
-
 .full{
     width:100%;
     margin-top:12px;
@@ -121,13 +82,11 @@ button{
     overflow:hidden;
     position:relative;
 }
-
 #cameraVideo{
     width:100%;
     height:100%;
     object-fit:cover;
 }
-
 .scan-frame{
     position:absolute;
     width:65%;
@@ -137,7 +96,6 @@ button{
     border:3px solid white;
     border-radius:15px;
 }
-
 .scan-line{
     position:absolute;
     left:20%;
@@ -162,14 +120,12 @@ button{
     padding:16px;
     border-radius:12px;
 }
-
 .warning{
     background:#fff7df;
     color:#856404;
     padding:16px;
     border-radius:12px;
 }
-
 .danger{
     background:#fff0ef;
     color:#b42318;
@@ -183,16 +139,13 @@ button{
     align-items:center;
     gap:10px;
 }
-
 .item h3{
     margin:0 0 5px;
     font-size:16px;
 }
-
 .item small{
     color:#68778b;
 }
-
 .price{
     font-weight:bold;
     margin-bottom:8px;
@@ -205,12 +158,10 @@ button{
     border-bottom:1px solid #e5e9ef;
     padding:14px 0;
 }
-
 .qty button{
     padding:5px 9px;
     margin:2px;
 }
-
 .total{
     display:flex;
     justify-content:space-between;
@@ -224,6 +175,9 @@ button{
     padding:14px;
     border-radius:12px;
     margin:10px 0;
+}
+.payment input{
+    margin-right:8px;
 }
 
 input{
@@ -264,53 +218,14 @@ nav{
     justify-content:space-around;
     z-index:30;
 }
-
 nav button{
     background:none;
     color:#637187;
     font-size:11px;
 }
-
 nav button.active{
     color:#1769e0;
     font-weight:bold;
-}
-
-@media(max-width:600px){
-
-    header{
-        padding:14px 12px;
-    }
-
-    .brand{
-        gap:10px;
-    }
-
-    .brand img{
-        width:42px;
-        height:42px;
-    }
-
-    .brand h1{
-        font-size:20px;
-    }
-
-    .brand p{
-        font-size:11px;
-    }
-
-    .screen{
-        padding:14px;
-        padding-bottom:90px;
-    }
-
-    .card{
-        padding:16px;
-    }
-
-    button{
-        margin:5px 0;
-    }
 }
 </style>
 </head>
@@ -320,178 +235,121 @@ nav button.active{
 <div class="app">
 
 <header>
-
-    <div class="brand">
-
-        <!-- MEDITECH LOGO EMBEDDED INSIDE HTML -->
-        <img
-        src="data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAAAQABAAD/4gHYSUNDX1BST0ZJTEUAAQEAAAHIAAAAAAQwAABtbnRyUkdCIFhZWiAH4AABAAEAAAAAAABhY3NwAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAQAA9tYAAQAAAADTLQAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAlkZXNjAAAA8AAAACRyWFlaAAABFAAAABRnWFlaAAABKAAAABRiWFlaAAABPAAAABR3dHB0AAABUAAAABRyVFJDAAABZAAAAChnVFJDAAABZAAAAChiVFJDAAABZAAAAChjcHJ0AAABjAAAADxtbHVjAAAAAAAAAAEAAAAMZW5VUwAAAAgAAAAcAHMAUgBHAEJYWVogAAAAAAAAb6IAADj1AAADkFhZWiAAAAAAAABimQAAt4UAABjaWFlaIAAAAAAAACSgAAAPhAAAts9YWVogAAAAAAAA9tYAAQAAAADTLXBhcmEAAAAAAAQAAAACZmYAAPKnAAANWQAAE9AAAApbAAAAAAAAAABtbHVjAAAAAAAAAAEAAAAMZW5VUwAAACAAAAAcAEcAbwBvAGcAbABlACAASQBuAGMALgAgADIAMAAxADb/2wBDAAMCAgMCAgMDAwMEAwMEBQgFBQQEBQoHBwYIDAoMDAsKCwsNDhIQDQ4RDgsLEBYQERMUFRUVDA8XGBYUGBIUFRT/2wBDAQMEBAUEBQkFBQkUDQsNFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBT/wAARCAYABYUDASIAAhEBAxEB/8QAHgAAAwEAAgMBAQAAAAAAAAAAAAECAwQIBQYJBwr/xABREAACAgAFAgIGAwgPBwMFAQEAAQIRAwQSITEFBgdBCBMiUWFxFDJyFSM0gZGSobEJJCUmMzZCRFJUYnOiwdEWFzVDU4LhGIOTN0VVY/AnGf/EABwBAQACAwEBAQAAAAAAAAAAAAACAwEEBwYFCP/EADURAQACAgEEAQIEBQUBAAIDAQABAgMRIQQFEjEGIkETMlFxIyQzNGEUFUJSkSU1UxZDgWL/2gAMAwEAAhEDEQA/APqin5FEFWgGArsYCfBJT4JAE6KTskLoCmrJaocXY+QJAbVCACW7BuxABUSQAspOyEwtAW+CQu/MAAAAAAAABNWMAILXAAACqxlLgCYxKSoYAJuiRy5IdoCgBcAAAAcAA4kWVFgWArQWgGJqwuxgS0Ip8EgAAAAAAAAAAAAAAPUImwKAFwADUR6QTGBAA+QAADgluwHqDUSAFahkDAoAAAAKsAE3QahktUA9QaiQApOxkFJgMAABNElgAojAAAAAAAAAAAAAAAAAAAAAAGohpGgugJAbdiAAApcASBTVi0gIpcEtUNOmAS5ENu2IAAAABSGAEAWACSoYDSsBNWCQNUNNIB6RitBaATVC4G3ZL4AadgnRBaApOxN2IAAWkYALSGkYALSGkYAQA3yIAAfJSQEpWUPSyW9wGAkxgJqxFAAlwMAAAAAB8CiDTBKgGAAAD1CslsDROxmcWOwLJbFYAAAFpgAAAAKhj0gSluW+BaRvgCQAAApOyQAKpgUKXIBqFyFitAMAABxE+RxE+QFIAkADAWoNQDKTtEaioy2Aolqhp2MCCZF6RNAEHRV7EJUMAbsAACWgStlABLVCLACAKasWkAXJQlEYAAAAAALkAAsAIApqyQAaZMhJ0BqBCZSdgFWJrYoAIAcuRAApDACB3Q2gSoATsYAAXQ7YgALsAAAAAAAAAAAAAAAABUhgAAAAA7YhKO4DAAAT4JLE0BIAUkBJSVDAABAAFioSdA3YCCrAG6Al7CqytQPcCQHVCApMZMeSgAASsekBANqhAAAAAAAAAAAAAAAAAAAAAO2IAAAB8EgFs0RkWnQFgLUhgTLkRZD5AAKS2B8ASAAAAS3uOLAYAADSsYk6HqAHwSU90S9gAOBS4JAdsLsQABa4JSsoAAaViAAAE7ApIKQJjAlrYQ2/IVoBUgaGAAlQLkVjTAsylyaaiGrAktcCSoYAACsBgHIAAAPSAgHpE1QAJuhiasCQboAAIOyyYrcoAAAAluwXIaQXIFAAABZAAWJ8Erkp8ASACkAwIKTAtcCfJOofIEvkaQwAAAAHET5HET5AUgCQAKmFM0oUgIoa4GADXI7JACrB0SACbpCT3G+ASAYAADVA6oQAAAAAAm6DUAwsWokCwJXJQAC5AFyBYAJugGS3bBuxAS7YIoTiA0AkqGA7YWxAAXYCboNQDAAABpCHEB0gpCbJboCnQqEnZSYCoKLACAG3YgAAAAAAYBYWTpEBdk2xAA7Y0yQAsarzJSGAAKtxgAAACpA2xNFLgCbYWxyJAdsLYikgFbC2NqxaQC2F2GkGqAQ4iAC7QqQtLKASVMYAA0x2SADkIAAABuiU9wKoKK1BqAkAbsT4AdgSPUAwFqGnYAFiathQDAVj5AAqwABUg3T+AwABpiABtisCXyBaaoG9iCkAAAAS1THEYJUAAF7gABQ48lAJA1YwAgmigAmh0Ma5AVAuSyHyBVoToQnwAxRTEuS00AkVZL3AAfIpBqDUAwskQDYKxFLgBgOInyAAAAJ2KmUAAlsFDToeoASGAtQAKQmxcgMAABNCooAFEdCSopMBUFFgBAUOQgAAAAE2xgAk3Zb4JG3YCJdsoG6AmgoadjAjeykJ8gBS5KpEJ2MCmiaK1BqAEhNbj1BqAhoC7QAMAJ1AJ8gAAAAAAAAAANKxpICQKaskAEnuEhLYCgFqGApLcRaVoHGwM97+AF6NiAGuShJDAa5HQlyUAnwS2NuyJcgFspOyCkgGUlsSO9gBiAAATsY0rAhsRbiJKgGgApKgEkD24KJkAiWUJqwEUKqGA0wbsQAAAAAAAAAAAAUBSVATp+AqRoLSBFIKQwABpWIqPABSE1TG3RLdgAEt2NMBgAAAqQwStgKkOitIwIoCxS4AkAABUgpDAAAAAAAAALE+CQLslsQAMFyIALAlOigAAABUiSxaUBI7oekTVAVYWQADfIXQhgNMYkqGACbplJ0S1bAYCSoYAFWAAJrcYAABQD1AKhOzQTVgZ7lLgbVCAae5RnqKUtgKJbsG7EACvcJcEgWNckxGBVkvkAAAfAABKW5QAAE2yiWqATdIm2ULSAwAAApcElLgCoifI4ifIAAAAAAAABW4AFg+AB7gTYJ0PSJqgKGiUxgVSCkLUGoBMBPgkDS2FslOxgF2AAAAAAAAAAAA9gE3Qg5EAFJ2JKykqAl8sB0NKgEluMAAAGlYmqAAAAAAAAATdBqAYBYAAAAAAAAFJkgA2xAACkS+CmrJaAImiRmlRpECgATdAMnSPUMCAG0IACwAAAm9yluA6CqKE+AJAClwBDEnRbVEPkCikZplJ0A5ciAAAqyG6DUBdibJ1AnYDAAAAAAAAAAAA4AOBJ7ibsFyBQAAAFgAFJ2MhclgQ+QB8gAAAAAANKwIphpNNJPACW3Ir3HJWSBY1yTEpcgUACboAE2LkG6AL3Alu2NOwLS2FIa4FIBAAAAATqAbZI6GkAqKSoAABNbDACUrKAAAAAAGxC1AMAGlYE6RaTTSFASlsOigAgCtJL2AAAABKxpDQcJfIhy5EA0rBqhrgHwBIWJskCxpkJ0PUBbexPAtQuQDljpglRSVgKK942hpUMCBadxgAAAAAAAAAAAAAtQDASkMAB7gAEsQ3yIAKXBJa4AcRPkcRPkAAAAAAAAAAAAG/IAKXBM1ZSBqwJqgK0hpAkTY2TIBAA1yA0qGAAAFaSWqAAAAAAAAE+BgBA+R0OgBKgAaVgIAACrQWSAFWJu2ITdAMBag1AMBagAYCUhgAAAAAAAAAAADSsdICQKpBSAkCqQmqQCAAALAAAAsAAAATdAJvcLEADijRcERLXAA+CSpEt0AD1bEp2MAE0MAEojAAC6FaFLkQFWhN2IAAaQUNKgGAAAAAACQDSsdICQe5VIKQGekaVMpqhANNFEDtgOiR6mIA8wAAAadMQAVaC0SADbTEAAFgAANCAAAlvcbdEgOwTEAFWgbJAAKSoS5KAaTHxyC4FIBCdjABJMYABSoTpCugAAAT4AGxJiAC+QJTooAAAbAT5GTyygBclkFJ2AwAAAAACLAbEAqfvGAAFhYAAABLYFJgTdDTAYmrGAEDSsqrCqAnSNKhgAAAAFhYN0ibYFATbKXAAACfABaHdkABYAgAAAAJfIWD5EA09yiVyUAnENIwAAAAAAFq3AYAAAS3uUKkALgYAADihAnQFikCdikArAAAAAAAAexNsCgEmMCrQm1QhS4ALQWiE9xgNsLEVSAVlCpDAHwKI2TdAUmVaITGBZL5BMdWBIDaEBVol8iboYAAAAAAAQNIErKAASsCo8AJqhFkPkAAAAadD1IkAK1BqJACtQnJMQAAAAAAAADbsQAApDBqwIAdAA4jJTKACZcjbpEgVEL3CIwApcEjtgUQ+R2xATLkcRS5C6AoErJT3KToCqE0FsQAVHgkAKfBI7EA4lEXQ7YFAKwsBifAWDewEgAAABYAAMAAgpMTQgLAFwUkAtLDSUAE6Q0lABOkRZL5AmRJbVk0AgHQ6QAo2PTRS4GBAFUSAJ0KUrE2EQKXBUeCQsCnwSFgAQKaFFJDsBaRFNkgAnwMT4AkAAAHpBclAJKmW1YktygIAHyFgCdFckgAPkAAAAHwTbAoFyTbKQFkPkdsQAS+SiXyAgAAKTGSuSgAAXI5AIG6AUkAnuJuhksBp2AolUAhp7hQ0gGD3AAJ0lAAAHI0kOqAVCLIAl8iG+RANclErkoClwMm2FsBMAAAJfJQACVAA0gEA2qEBMuRBO7BAUnQaiQArUNOyCogMAAAAAAT4JKfBIANMQAXdg90KI0BOkNJpSE6oCaGAAFgJ8oYAJqxhQEtUIugpACKXBIXQFcEvdjuxASUuCa+BQAAAAAAAJcIYAA6GlRN0DYDbEAABLZQqQBEYRVcgAAJgrAYAN8fEBATbGgGAAAE2UKkAlyUFUFgAAAE+8a4CkMCW7EAAVEqtiYjsAFYwqwFdjCgATVi0lAAlEaVgAD0iew7YmAAAAAAJgGoNQqBICk7ACkkBIclUgaoCWqE+BkuwENOhDSAobVCXJYGb4ElZQANclEDtgJOiuSQugLAm2KwG3Y/Ikq9gE1Qg5AAAAXIDToadhSDZAMlqgb9wgE0NIBN0AxN0CbYwBOwAAB7C1De6EkAag1BSCkAah8oVIPP4AJqhF1YqQAuCoiJ1MDUDLU7LtgJ+ZBYqQAnYwqgAdCaodjuwJJfJpSDSgMi1wJoaAAAAAKsaWw6QGekRrSE0gMyog0kICh8oi2OLe4FNUILsABqxaRhQCSGFBwAAS2wTAoAsLAAAAArUSAFaiQACXyIuhUgEuSgqgATdBY9PwDT8AAAoKAACikqAEqGJuhWwCQgACZciKaFQCHpGlQwJ0jSoYAAAAAACk6AHwSO2xpAJKygSKrYCQCqABahp2FBVAAAJtgMCbY07ApRKIuh2wKJ0lABAN0VVkyQEt2NPyCkOgACbZQAAAAAAAAAAANKx" 
-        alt="Meditech Logo">
-
-        <div>
-            <h1>Meditech</h1>
-            <p>Medicine Verification Demo</p>
-        </div>
-
-    </div>
-
+    <h1>💊 MedVerify</h1>
+    <p>Medicine Verification Demo</p>
 </header>
 
-
 <!-- HOME -->
-
 <section id="home" class="screen">
 
     <div class="hero">
-
         <h2>Verify Your Medicine</h2>
+        <p>Scan the QR code on your medicine package.</p>
 
-        <p>
-            Scan the QR code on your medicine package.
-        </p>
-
-        <button
-            class="primary full"
-            onclick="showScreen('camera')">
-
+        <button class="primary full" onclick="showScreen('camera')">
             📷 Open Camera
-
         </button>
-
     </div>
 
-
     <div class="card">
-
         <h3>How it works</h3>
-
         <p style="color:#68778b;font-size:14px;line-height:1.7">
-
             1. Open camera<br>
             2. Scan QR code<br>
             3. View medicine result<br>
             4. Open demo store<br>
             5. Add items to cart<br>
             6. Continue to demo payment
-
         </p>
-
     </div>
 
-
     <div class="card">
-
         <h3>🧪 Test Without Camera</h3>
 
-        <button
-            class="secondary full"
-            onclick="scanMedicine('AMX-2291-GEN')">
-
+        <button class="secondary full"
+                onclick="scanMedicine('AMX-2291-GEN')">
             Verified Medicine
-
         </button>
 
-        <button
-            class="secondary full"
-            onclick="scanMedicine('PCM-0087-SAFE')">
-
+        <button class="secondary full"
+                onclick="scanMedicine('PCM-0087-SAFE')">
             Paracetamol
-
         </button>
 
-        <button
-            class="secondary full"
-            onclick="scanMedicine('INS-4410-RCL')">
-
+        <button class="secondary full"
+                onclick="scanMedicine('INS-4410-RCL')">
             Recalled Demo Code
-
         </button>
 
-        <button
-            class="secondary full"
-            onclick="scanMedicine('XYZ-0000-FAKE')">
-
+        <button class="secondary full"
+                onclick="scanMedicine('XYZ-0000-FAKE')">
             Counterfeit Demo Code
-
         </button>
-
     </div>
 
 </section>
 
-
 <!-- CAMERA -->
-
 <section id="camera" class="screen hidden">
 
-    <button
-        class="secondary"
-        onclick="showScreen('home')">
-
+    <button class="secondary" onclick="showScreen('home')">
         ← Back
-
     </button>
 
     <div style="height:15px"></div>
 
     <div class="camera-box">
-
-        <video
-            id="cameraVideo"
-            autoplay
-            playsinline>
-        </video>
+        <video id="cameraVideo"
+               autoplay
+               playsinline
+               muted></video>
 
         <div class="scan-frame"></div>
-
         <div class="scan-line"></div>
-
     </div>
 
-    <canvas
-        id="qrCanvas"
-        class="hidden">
-    </canvas>
+    <canvas id="qrCanvas" style="display:none"></canvas>
+
+    <p style="text-align:center;color:#68778b;font-size:13px">
+        QR code को camera के सामने रखो।
+    </p>
 
     <div id="cameraError"></div>
 
-</section>
-
-
-<!-- RESULT -->
-
-<section id="result" class="screen hidden">
-
-    <button
-        class="secondary"
-        onclick="showScreen('home')">
-
-        ← Back
-
+    <button class="secondary full" onclick="startCamera()">
+        🔄 Restart Camera
     </button>
 
-    <div id="resultBox"></div>
+</section>
+
+<!-- RESULT -->
+<section id="result" class="screen hidden">
+
+    <button class="secondary" onclick="showScreen('home')">
+        ← Home
+    </button>
+
+    <div class="card">
+        <h2>Medicine Result</h2>
+        <div id="resultBox" style="margin-top:15px"></div>
+    </div>
 
 </section>
 
-
 <!-- STORE -->
-
 <section id="store" class="screen hidden">
 
     <h2>🏪 Demo Store</h2>
 
-    <p style="color:#68778b">
-        Demo products only. No real medicine purchase.
+    <p style="font-size:13px;color:#68778b">
+        Prototype only — no real medicine order is placed.
     </p>
 
     <div id="storeItems"></div>
 
 </section>
 
-
 <!-- CART -->
-
 <section id="cart" class="screen hidden">
 
     <h2>🛒 Cart</h2>
@@ -499,432 +357,321 @@ nav button.active{
     <div id="cartItems"></div>
 
     <div class="card">
-
         <div class="total">
-
             <span>Total</span>
-
-            <span id="cartTotal">
-                ₹0
-            </span>
-
+            <span id="cartTotal">₹0</span>
         </div>
 
-        <button
-            class="primary full"
-            onclick="openPayment()">
-
-            Continue to Demo Payment
-
+        <button class="primary full"
+                onclick="openPayment()">
+            Continue to Payment →
         </button>
-
     </div>
 
 </section>
 
-
 <!-- PAYMENT -->
-
 <section id="payment" class="screen hidden">
 
-    <button
-        class="secondary"
-        onclick="showScreen('cart')">
-
-        ← Back
-
+    <button class="secondary" onclick="showScreen('cart')">
+        ← Cart
     </button>
 
     <div class="card">
 
-        <h2>💳 Demo Payment</h2>
+        <h2>💳 Payment Method</h2>
 
-        <div class="warning">
+        <p style="font-size:13px;color:#68778b">
+            Demo payment only. No real transaction will occur.
+        </p>
 
-            ⚠️ Demo only.
-            Real payment information mat daalna.
+        <label class="payment">
+            <input type="radio"
+                   name="payment"
+                   onchange="paymentType('card')">
+            💳 Card
+        </label>
 
-        </div>
+        <label class="payment">
+            <input type="radio"
+                   name="payment"
+                   onchange="paymentType('upi')">
+            📱 UPI — Demo
+        </label>
 
-        <div class="payment">
+        <label class="payment">
+            <input type="radio"
+                   name="payment"
+                   onchange="paymentType('cod')">
+            🚚 Cash on Delivery — Demo
+        </label>
 
-            <label>
-                <input
-                    type="radio"
-                    name="payment"
-                    checked
-                    onclick="paymentType('card')">
+        <!-- CARD -->
+        <div id="cardForm" class="hidden">
 
-                Demo Card
+            <h3>Card Details</h3>
 
-            </label>
-
-            <br>
-
-            <label>
-                <input
-                    type="radio"
-                    name="payment"
-                    onclick="paymentType('upi')">
-
-                Demo UPI
-
-            </label>
-
-        </div>
-
-
-        <div id="cardForm">
-
-            <h3>Demo Card Details</h3>
-
-            <input
-                type="text"
-                placeholder="Demo User">
+            <label>Cardholder Name</label>
+            <input type="text"
+                   placeholder="Demo User">
 
             <label style="display:block;margin-top:12px">
                 Card Number
             </label>
 
-            <input
-                type="text"
-                maxlength="19"
-                inputmode="numeric"
-                placeholder="XXXX XXXX XXXX XXXX"
-                oninput="formatCard(this)">
+            <input type="text"
+                   maxlength="19"
+                   inputmode="numeric"
+                   placeholder="XXXX XXXX XXXX XXXX"
+                   oninput="formatCard(this)">
 
             <div style="display:flex;gap:10px">
 
                 <div style="flex:1">
-
                     <label>Expiry</label>
-
-                    <input
-                        type="text"
-                        maxlength="5"
-                        placeholder="MM/YY">
-
+                    <input type="text"
+                           maxlength="5"
+                           placeholder="MM/YY">
                 </div>
 
                 <div style="flex:1">
-
                     <label>CVV</label>
-
-                    <input
-                        type="text"
-                        maxlength="4"
-                        placeholder="XXX">
-
+                    <input type="text"
+                           maxlength="4"
+                           placeholder="XXX">
                 </div>
 
             </div>
 
+            <div class="warning" style="margin-top:12px">
+                ⚠️ Demo only. Real card details मत डालना।
+            </div>
+
         </div>
 
-
+        <!-- UPI -->
         <div id="upiForm" class="hidden">
 
             <h3>Demo UPI ID</h3>
 
-            <input
-                type="text"
-                placeholder="demo@upi">
+            <input type="text"
+                   placeholder="demo@upi">
 
         </div>
 
-
-        <button
-            class="primary full"
-            onclick="confirmPayment()">
-
+        <button class="primary full"
+                onclick="confirmPayment()">
             Confirm Demo Payment
-
         </button>
 
     </div>
 
 </section>
 
-
 <!-- PROFILE -->
-
 <section id="profile" class="screen hidden">
 
     <h2>👤 Profile</h2>
 
     <div class="card">
-
-        <h3>Meditech</h3>
+        <h3>MedVerify</h3>
 
         <p style="color:#68778b">
             Medicine verification prototype.
         </p>
-
     </div>
 
 </section>
 
 </div>
 
-
 <!-- CART BAR -->
+<div id="cartBar" class="cart-bar hidden">
 
-<div
-    id="cartBar"
-    class="cart-bar hidden">
+    <span id="cartCount">0 items</span>
 
-    <span id="cartCount">
-        0 items
-    </span>
-
-    <button
-        class="primary"
-        onclick="showScreen('cart')">
-
+    <button class="primary"
+            onclick="showScreen('cart')">
         View Cart
-
     </button>
 
 </div>
 
-
 <!-- NAVIGATION -->
-
 <nav>
 
-    <button
-        id="navHome"
-        onclick="showScreen('home')">
-
+    <button id="navHome"
+            onclick="showScreen('home')">
         🏠<br>Home
-
     </button>
 
-    <button
-        id="navCamera"
-        onclick="showScreen('camera')">
-
+    <button id="navCamera"
+            onclick="showScreen('camera')">
         📷<br>Scan
-
     </button>
 
-    <button
-        id="navStore"
-        onclick="showScreen('store')">
-
+    <button id="navStore"
+            onclick="showScreen('store')">
         🏪<br>Store
-
     </button>
 
-    <button
-        id="navCart"
-        onclick="showScreen('cart')">
-
+    <button id="navCart"
+            onclick="showScreen('cart')">
         🛒<br>Cart
-
     </button>
 
-    <button
-        id="navProfile"
-        onclick="showScreen('profile')">
-
+    <button id="navProfile"
+            onclick="showScreen('profile')">
         👤<br>Profile
-
     </button>
 
 </nav>
 
-
 <script>
 
 /* =========================
-   MEDICINE DATABASE
+   CAMERA VARIABLES
+========================= */
+
+let cameraStream = null;
+let scanAnimation = null;
+
+
+/* =========================
+   CART
+========================= */
+
+let cart = [];
+
+
+/* =========================
+   DEMO MEDICINES
 ========================= */
 
 const medicines = {
 
-    "PCM-0087-SAFE": {
-
-        name:"Paracetamol 650mg",
-
-        manufacturer:"NatWell Pharma",
-
-        expiry:"2028-10-01",
-
-        status:"verified"
-
-    },
-
-    "AMX-2291-GEN": {
-
+    "AMX-2291-GEN":{
         name:"Amoxicillin 500mg",
-
         manufacturer:"GenPharma Ltd.",
-
-        expiry:"2028-12-01",
-
         status:"verified"
-
     },
 
-    "INS-4410-RCL": {
+    "PCM-0087-SAFE":{
+        name:"Paracetamol 650mg",
+        manufacturer:"NatWell Pharma",
+        status:"verified"
+    },
 
+    "INS-4410-RCL":{
         name:"Sample Medicine",
-
         manufacturer:"Demo Pharma",
-
-        expiry:"2027-06-01",
-
         status:"recalled"
-
     },
 
-    "XYZ-0000-FAKE": {
-
+    "XYZ-0000-FAKE":{
         name:"Unknown Medicine",
-
         manufacturer:"Unknown",
-
-        expiry:"Unknown",
-
         status:"counterfeit"
-
     }
 
 };
 
 
 /* =========================
-   DEMO STORE
+   STORE ITEMS
 ========================= */
 
 const storeItems = [
 
     {
-        name:"Medicine Safety Pack",
-        meta:"Demo product",
-        price:99
+        name:"Amoxicillin 500mg",
+        price:42,
+        meta:"Demo item"
     },
 
     {
-        name:"Health Check Kit",
-        meta:"Demo product",
-        price:149
+        name:"Paracetamol 650mg",
+        price:18,
+        meta:"Demo item"
     },
 
     {
-        name:"Digital Medicine Guide",
-        meta:"Demo product",
-        price:49
+        name:"ORS Rehydration Sachets",
+        price:25,
+        meta:"Demo item"
+    },
+
+    {
+        name:"Metformin 500mg",
+        price:56,
+        meta:"Demo item"
+    },
+
+    {
+        name:"Cetirizine 10mg",
+        price:15,
+        meta:"Demo item"
     }
 
 ];
 
 
 /* =========================
-   SCREEN CONTROL
+   SCREEN NAVIGATION
 ========================= */
 
-function showScreen(screenId){
-
-    const screens =
-        document.querySelectorAll(".screen");
-
-    screens.forEach(screen=>{
-
-        screen.classList.add("hidden");
-
-    });
-
-
-    const selected =
-        document.getElementById(screenId);
-
-    if(selected){
-
-        selected.classList.remove("hidden");
-
-    }
-
+function showScreen(name){
 
     stopCamera();
 
+    document
+        .querySelectorAll(".screen")
+        .forEach(screen=>{
+            screen.classList.add("hidden");
+        });
 
-    if(screenId==="camera"){
+    document
+        .getElementById(name)
+        .classList.remove("hidden");
 
-        startCamera();
+    document
+        .querySelectorAll("nav button")
+        .forEach(button=>{
+            button.classList.remove("active");
+        });
 
-    }
-
-
-    if(screenId==="store"){
-
-        renderStore();
-
-    }
-
-
-    if(screenId==="cart"){
-
-        renderCart();
-
-    }
-
-
-    updateNavigation(screenId);
-
-}
-
-
-/* =========================
-   NAVIGATION ACTIVE
-========================= */
-
-function updateNavigation(screenId){
-
-    const buttons = {
-
+    const navMap = {
         home:"navHome",
-
         camera:"navCamera",
-
         store:"navStore",
-
         cart:"navCart",
-
         profile:"navProfile"
-
     };
 
-
-    Object.values(buttons).forEach(id=>{
-
+    if(navMap[name]){
         document
-            .getElementById(id)
-            .classList.remove("active");
-
-    });
-
-
-    if(buttons[screenId]){
-
-        document
-            .getElementById(buttons[screenId])
+            .getElementById(navMap[name])
             .classList.add("active");
+    }
 
+    if(name==="camera"){
+        startCamera();
+    }
+
+    if(name==="store"){
+        renderStore();
+    }
+
+    if(name==="cart"){
+        renderCart();
     }
 
 }
 
 
 /* =========================
-   CAMERA
+   CAMERA START
 ========================= */
-
-let cameraStream = null;
-
-let scanAnimation = null;
-
 
 async function startCamera(){
 
@@ -934,6 +681,7 @@ async function startCamera(){
     const error =
         document.getElementById("cameraError");
 
+    error.innerHTML="";
 
     if(!navigator.mediaDevices ||
        !navigator.mediaDevices.getUserMedia){
@@ -944,9 +692,7 @@ async function startCamera(){
         </div>`;
 
         return;
-
     }
-
 
     try{
 
@@ -963,12 +709,9 @@ async function startCamera(){
 
             });
 
-
-        video.srcObject =
-            cameraStream;
+        video.srcObject = cameraStream;
 
         await video.play();
-
 
         scanAnimation =
             requestAnimationFrame(scanQR);
@@ -981,12 +724,9 @@ async function startCamera(){
 
         error.innerHTML =
         `<div class="error">
-
             ❌ Camera access नहीं मिला।<br><br>
-
             Browser में Camera permission को
             <b>Allow</b> करो।
-
         </div>`;
 
     }
@@ -1006,15 +746,10 @@ function scanQR(){
     const canvas =
         document.getElementById("qrCanvas");
 
-
     if(
-
         video.readyState >= 2 &&
-
         video.videoWidth > 0 &&
-
         typeof jsQR !== "undefined"
-
     ){
 
         canvas.width =
@@ -1023,56 +758,33 @@ function scanQR(){
         canvas.height =
             video.videoHeight;
 
-
         const ctx =
-            canvas.getContext(
-                "2d",
-                {
-                    willReadFrequently:true
-                }
-            );
-
+            canvas.getContext("2d",{
+                willReadFrequently:true
+            });
 
         ctx.drawImage(
-
             video,
-
             0,
-
             0,
-
             canvas.width,
-
             canvas.height
-
         );
-
 
         const image =
             ctx.getImageData(
-
                 0,
-
                 0,
-
                 canvas.width,
-
                 canvas.height
-
             );
-
 
         const qr =
             jsQR(
-
                 image.data,
-
                 image.width,
-
                 image.height
-
             );
-
 
         if(qr && qr.data){
 
@@ -1083,11 +795,9 @@ function scanQR(){
             );
 
             return;
-
         }
 
     }
-
 
     scanAnimation =
         requestAnimationFrame(scanQR);
@@ -1107,10 +817,8 @@ function stopCamera(){
             scanAnimation
         );
 
-        scanAnimation = null;
-
+        scanAnimation=null;
     }
-
 
     if(cameraStream){
 
@@ -1120,19 +828,14 @@ function stopCamera(){
                 track.stop();
             });
 
-        cameraStream = null;
-
+        cameraStream=null;
     }
-
 
     const video =
         document.getElementById("cameraVideo");
 
-
     if(video){
-
-        video.srcObject = null;
-
+        video.srcObject=null;
     }
 
 }
@@ -1148,151 +851,90 @@ function scanMedicine(code){
 
     showScreen("result");
 
-
     const medicine =
         medicines[code];
-
 
     const box =
         document.getElementById("resultBox");
 
-
     if(!medicine){
 
         box.innerHTML =
-
         `<div class="danger">
-
             ❌ QR Code Not Recognised
-
         </div>
 
         <div class="card">
-
             <b>Scanned Code</b>
-
-            <p>
-                ${escapeHTML(code)}
-            </p>
-
+            <p>${escapeHTML(code)}</p>
         </div>`;
 
         return;
-
     }
 
 
     if(medicine.status==="verified"){
 
         box.innerHTML =
-
         `<div class="success">
-
             <h3>✓ Medicine Verified</h3>
-
-            <p>
-                Demo verification successful.
-            </p>
-
+            <p>Demo verification successful.</p>
         </div>
 
         <div class="card">
 
             <b>Medicine</b>
-
-            <p>
-                ${medicine.name}
-            </p>
+            <p>${medicine.name}</p>
 
             <br>
 
             <b>Manufacturer</b>
-
-            <p>
-                ${medicine.manufacturer}
-            </p>
-
-            <br>
-
-            <b>Expiry Date</b>
-
-            <p>
-                ${medicine.expiry}
-            </p>
+            <p>${medicine.manufacturer}</p>
 
             <br>
 
             <b>QR Code</b>
-
-            <p>
-                ${escapeHTML(code)}
-            </p>
+            <p>${code}</p>
 
         </div>
 
-        <button
-            class="primary full"
-            onclick="showScreen('store')">
-
+        <button class="primary full"
+                onclick="showScreen('store')">
             🏪 Open Demo Store
-
         </button>`;
 
         return;
-
     }
 
 
     if(medicine.status==="recalled"){
 
         box.innerHTML =
-
         `<div class="warning">
-
             ⚠️ Recalled Demo Product
-
         </div>
 
         <div class="card">
-
-            <b>
-                ${medicine.name}
-            </b>
-
-            <p>
-                ${medicine.manufacturer}
-            </p>
-
-            <p>
-                This is demonstration data only.
-            </p>
-
+            <b>${medicine.name}</b>
+            <p>${medicine.manufacturer}</p>
+            <p>This is demonstration data only.</p>
         </div>`;
 
         return;
-
     }
 
 
     box.innerHTML =
-
     `<div class="danger">
-
         ❌ Counterfeit / Unknown Demo Code
-
     </div>
 
     <div class="card">
-
         <b>Warning</b>
-
         <p>
-
             This demonstration code is marked
             as counterfeit.
-
         </p>
-
     </div>`;
 
 }
@@ -1307,9 +949,7 @@ function renderStore(){
     const container =
         document.getElementById("storeItems");
 
-
-    container.innerHTML = "";
-
+    container.innerHTML="";
 
     storeItems.forEach((item,index)=>{
 
@@ -1320,31 +960,19 @@ function renderStore(){
             <div class="item">
 
                 <div>
-
-                    <h3>
-                        ${item.name}
-                    </h3>
-
-                    <small>
-                        ${item.meta}
-                    </small>
-
+                    <h3>${item.name}</h3>
+                    <small>${item.meta}</small>
                 </div>
 
                 <div>
-
                     <div class="price">
                         ₹${item.price}
                     </div>
 
-                    <button
-                        class="primary"
-                        onclick="addToCart(${index})">
-
+                    <button class="primary"
+                            onclick="addToCart(${index})">
                         Add
-
                     </button>
-
                 </div>
 
             </div>
@@ -1353,53 +981,41 @@ function renderStore(){
 
     });
 
-
     updateCartBar();
 
 }
 
 
 /* =========================
-   CART
+   ADD CART
 ========================= */
-
-let cart = [];
-
 
 function addToCart(index){
 
     const item =
         storeItems[index];
 
-
     const existing =
         cart.find(
             x=>x.name===item.name
         );
 
-
     if(existing){
 
         existing.qty++;
 
-    }
-
-    else{
+    }else{
 
         cart.push({
 
             name:item.name,
-
             price:item.price,
-
             meta:item.meta,
-
             qty:1
 
         });
 
     }
-
 
     updateCartBar();
 
@@ -1415,34 +1031,24 @@ function updateCartBar(){
     const bar =
         document.getElementById("cartBar");
 
-
     const count =
         cart.reduce(
-
             (sum,item)=>
                 sum + item.qty,
-
             0
-
         );
 
-
-    document.getElementById(
-        "cartCount"
-    ).textContent =
-
+    document.getElementById("cartCount")
+        .textContent =
         count +
         " item" +
         (count!==1 ? "s" : "");
-
 
     if(count>0){
 
         bar.classList.remove("hidden");
 
-    }
-
-    else{
+    }else{
 
         bar.classList.add("hidden");
 
@@ -1460,109 +1066,74 @@ function renderCart(){
     const container =
         document.getElementById("cartItems");
 
-
     const totalElement =
         document.getElementById("cartTotal");
 
-
-    container.innerHTML = "";
-
+    container.innerHTML="";
 
     if(cart.length===0){
 
         container.innerHTML =
+        `<div class="card"
+              style="text-align:center">
 
-        `<div
-            class="card"
-            style="text-align:center">
-
-            <h3>
-                Cart is Empty
-            </h3>
+            <h3>Cart is Empty</h3>
 
             <p style="color:#68778b">
-
                 Store से कोई demo item add करो।
-
             </p>
 
-            <button
-                class="primary full"
-                onclick="showScreen('store')">
-
+            <button class="primary full"
+                    onclick="showScreen('store')">
                 Open Store
-
             </button>
 
         </div>`;
 
-
-        totalElement.textContent =
-            "₹0";
-
+        totalElement.textContent="₹0";
 
         updateCartBar();
 
         return;
-
     }
 
 
-    let total = 0;
-
+    let total=0;
 
     cart.forEach((item,index)=>{
 
         total +=
             item.price * item.qty;
 
-
         container.innerHTML +=
 
         `<div class="card cart-item">
 
             <div>
-
-                <b>
-                    ${item.name}
-                </b>
+                <b>${item.name}</b>
 
                 <div style="color:#68778b">
-
                     ₹${item.price} each
-
                 </div>
-
             </div>
 
             <div class="qty">
 
-                <button
-                    class="secondary"
-                    onclick="changeQty(${index},-1)">
-
+                <button class="secondary"
+                        onclick="changeQty(${index},-1)">
                     −
-
                 </button>
 
-                <b>
-                    ${item.qty}
-                </b>
+                <b>${item.qty}</b>
 
-                <button
-                    class="secondary"
-                    onclick="changeQty(${index},1)">
-
+                <button class="secondary"
+                        onclick="changeQty(${index},1)">
                     +
-
                 </button>
 
-                <button
-                    class="secondary"
-                    onclick="removeItem(${index})">
-
+                <button class="secondary"
+                        onclick="removeItem(${index})">
                     ✕
-
                 </button>
 
             </div>
@@ -1574,7 +1145,6 @@ function renderCart(){
 
     totalElement.textContent =
         "₹" + total;
-
 
     updateCartBar();
 
@@ -1589,13 +1159,11 @@ function changeQty(index,change){
 
     cart[index].qty += change;
 
-
     if(cart[index].qty<=0){
 
         cart.splice(index,1);
 
     }
-
 
     renderCart();
 
@@ -1623,30 +1191,21 @@ function openPayment(){
 
     if(cart.length===0){
 
-        alert(
-            "Cart empty hai."
-        );
+        alert("Cart empty hai.");
 
         return;
-
     }
-
 
     showScreen("payment");
 
 }
 
 
-/* =========================
-   PAYMENT TYPE
-========================= */
-
 function paymentType(type){
 
     document
         .getElementById("cardForm")
         .classList.add("hidden");
-
 
     document
         .getElementById("upiForm")
@@ -1660,7 +1219,6 @@ function paymentType(type){
             .classList.remove("hidden");
 
     }
-
 
     if(type==="upi"){
 
@@ -1684,10 +1242,8 @@ function formatCard(input){
         .replace(/\D/g,"")
         .slice(0,16);
 
-
     let groups =
         value.match(/.{1,4}/g);
-
 
     input.value =
         groups
@@ -1704,18 +1260,13 @@ function formatCard(input){
 function confirmPayment(){
 
     alert(
-
         "✅ Demo Payment Successful!\n\n"+
         "No real payment was processed."
-
     );
 
-
-    cart = [];
-
+    cart=[];
 
     updateCartBar();
-
 
     showScreen("home");
 
@@ -1729,15 +1280,10 @@ function confirmPayment(){
 function escapeHTML(text){
 
     return String(text)
-
         .replace(/&/g,"&amp;")
-
         .replace(/</g,"&lt;")
-
         .replace(/>/g,"&gt;")
-
         .replace(/"/g,"&quot;")
-
         .replace(/'/g,"&#039;");
 
 }
