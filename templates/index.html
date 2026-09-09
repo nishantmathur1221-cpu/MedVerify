@@ -2,820 +2,734 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport"
-      content="width=device-width, initial-scale=1.0,
-      maximum-scale=1.0,user-scalable=no">
-
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Meditech</title>
 
-<style>
-*{
-    box-sizing:border-box;
-    -webkit-tap-highlight-color:transparent;
-}
+<script src="https://cdn.jsdelivr.net/npm/jsqr@1.4.0/dist/jsQR.js"></script>
 
-html,body{
+<style>
+*{box-sizing:border-box}
+
+body{
     margin:0;
-    padding:0;
-    font-family:Arial,Helvetica,sans-serif;
-    background:#f4f7fb;
+    font-family:Arial,sans-serif;
+    background:#f3f6fa;
     color:#172033;
 }
 
-body{
-    padding-bottom:78px;
+.app{
+    max-width:480px;
+    min-height:100vh;
+    margin:auto;
+    background:#fff;
 }
 
-button,
-input,
-select{
-    font:inherit;
-}
-
-button{
-    border:0;
-    cursor:pointer;
-}
-
-.topbar{
-    position:sticky;
-    top:0;
-    z-index:100;
-    background:#0b6bcb;
+header{
+    background:#102a43;
     color:white;
-    padding:15px 16px;
-    box-shadow:0 3px 12px rgba(0,0,0,.12);
+    padding:20px;
 }
 
-.topbar-inner{
+.brand{
     display:flex;
-    justify-content:space-between;
     align-items:center;
+    gap:12px;
 }
 
-.logo{
-    font-size:21px;
-    font-weight:800;
+.brand img{
+    width:46px;
+    height:46px;
+    object-fit:contain;
+    border-radius:10px;
+    background:#fff;
+    padding:3px;
 }
 
-.top-sub{
-    font-size:11px;
-    opacity:.9;
+.brand h1{
+    margin:0;
+    font-size:24px;
+}
+
+.brand p{
+    margin:5px 0 0;
+    opacity:.75;
+    font-size:13px;
 }
 
 .screen{
-    display:none;
-    max-width:700px;
-    margin:auto;
-    padding:15px;
-}
-
-.screen.active{
-    display:block;
-}
-
-.card{
-    background:white;
-    border-radius:18px;
-    padding:17px;
-    margin-bottom:14px;
-    box-shadow:0 4px 18px rgba(20,40,70,.07);
-}
-
-.hero{
-    background:linear-gradient(135deg,#0b6bcb,#1685e8);
-    color:white;
-    border-radius:22px;
-    padding:22px;
-    margin-bottom:15px;
-}
-
-.hero h1{
-    margin:0 0 8px;
-    font-size:25px;
-}
-
-.hero p{
-    margin:0;
-    font-size:13px;
-    opacity:.9;
-}
-
-h2,h3{
-    margin-top:0;
-}
-
-.small{
-    color:#697586;
-    font-size:13px;
-    line-height:1.5;
-}
-
-input,
-select{
-    width:100%;
-    padding:13px;
-    border:1px solid #d3dae3;
-    border-radius:12px;
-    background:white;
-    outline:none;
-    margin:7px 0;
-}
-
-input:focus,
-select:focus{
-    border-color:#0b6bcb;
-}
-
-.btn{
-    width:100%;
-    padding:13px;
-    border-radius:12px;
-    margin:5px 0;
-    font-weight:700;
-}
-
-.primary{
-    background:#0b6bcb;
-    color:white;
-}
-
-.secondary{
-    background:#eaf3ff;
-    color:#075ba9;
-}
-
-.success{
-    background:#16834b;
-    color:white;
-}
-
-.danger{
-    background:#d92d20;
-    color:white;
-}
-
-.dark{
-    background:#172033;
-    color:white;
-}
-
-.result{
-    padding:15px;
-    border-radius:14px;
-    margin-top:12px;
-    line-height:1.5;
-    font-size:14px;
-}
-
-.verified{
-    background:#eaf9f0;
-    border:1px solid #a9dfbd;
-}
-
-.warning{
-    background:#fff7df;
-    border:1px solid #f1d67b;
-}
-
-.expired{
-    background:#fff0ef;
-    border:1px solid #ffb9b4;
-}
-
-.info{
-    background:#edf5ff;
-    border:1px solid #bdd9ff;
-}
-
-.row{
-    padding:11px 0;
-    border-bottom:1px solid #e7ebf0;
-}
-
-.row:last-child{
-    border-bottom:0;
-}
-
-.label{
-    font-weight:bold;
-}
-
-#video{
-    width:100%;
-    border-radius:15px;
-    margin-top:10px;
-    background:#111;
-    display:none;
+    padding:20px;
+    padding-bottom:90px;
 }
 
 .hidden{
     display:none!important;
 }
 
-/* QUICK ACTIONS */
+.card{
+    background:#fff;
+    border:1px solid #e0e6ed;
+    border-radius:18px;
+    padding:18px;
+    margin:15px 0;
+    box-shadow:0 4px 15px rgba(0,0,0,.05);
+}
 
-.quick-grid{
-    display:grid;
-    grid-template-columns:repeat(2,1fr);
+.hero{
+    background:#eaf3ff;
+    border-radius:22px;
+    padding:28px 20px;
+    text-align:center;
+}
+
+.hero h2{
+    margin:0 0 8px;
+}
+
+.hero p{
+    color:#607086;
+    font-size:14px;
+}
+
+button{
+    border:0;
+    border-radius:12px;
+    padding:13px 17px;
+    font-size:15px;
+    cursor:pointer;
+}
+
+.primary{
+    background:#1769e0;
+    color:white;
+}
+
+.secondary{
+    background:#e9eef5;
+    color:#172033;
+}
+
+.full{
+    width:100%;
+    margin-top:12px;
+}
+
+.camera-box{
+    width:100%;
+    aspect-ratio:1/1;
+    background:#061827;
+    border-radius:20px;
+    overflow:hidden;
+    position:relative;
+}
+
+#cameraVideo{
+    width:100%;
+    height:100%;
+    object-fit:cover;
+}
+
+.scan-frame{
+    position:absolute;
+    width:65%;
+    height:65%;
+    left:17.5%;
+    top:17.5%;
+    border:3px solid white;
+    border-radius:15px;
+}
+
+.scan-line{
+    position:absolute;
+    left:20%;
+    right:20%;
+    top:50%;
+    height:2px;
+    background:white;
+}
+
+.error{
+    background:#fff0ef;
+    color:#b42318;
+    padding:13px;
+    border-radius:12px;
+    margin-top:12px;
+    font-size:13px;
+}
+
+.success{
+    background:#e9f9f0;
+    color:#087443;
+    padding:16px;
+    border-radius:12px;
+}
+
+.warning{
+    background:#fff7df;
+    color:#856404;
+    padding:16px;
+    border-radius:12px;
+}
+
+.danger{
+    background:#fff0ef;
+    color:#b42318;
+    padding:16px;
+    border-radius:12px;
+}
+
+.item{
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
     gap:10px;
 }
 
-.quick{
-    background:white;
-    border:1px solid #e1e7ef;
-    border-radius:16px;
-    padding:16px 10px;
-    text-align:center;
-    font-weight:bold;
-}
-
-.quick-icon{
-    display:block;
-    font-size:27px;
-    margin-bottom:7px;
-}
-
-/* DOCTORS */
-
-.doctor-grid{
-    display:grid;
-    grid-template-columns:1fr;
-    gap:11px;
-}
-
-.doctor{
-    border:1px solid #dfe6ee;
-    border-radius:15px;
-    padding:15px;
-    background:#fbfdff;
-}
-
-.available{
-    color:#087443;
-    font-weight:bold;
-}
-
-.busy{
-    color:#856404;
-    font-weight:bold;
-}
-
-/* STORE */
-
-.product{
-    border:1px solid #e1e6ed;
-    border-radius:16px;
-    padding:15px;
-    margin-bottom:11px;
-    background:white;
-}
-
-.product-icon{
-    font-size:35px;
-}
-
-.product-top{
-    display:flex;
-    gap:12px;
-    align-items:center;
-}
-
-.product-name{
-    font-weight:bold;
+.item h3{
+    margin:0 0 5px;
     font-size:16px;
 }
 
-.product-price{
-    font-weight:bold;
-    color:#0b6bcb;
-    margin-top:4px;
+.item small{
+    color:#68778b;
 }
 
-.qty{
-    display:flex;
-    align-items:center;
-    gap:10px;
-    margin-top:10px;
-}
-
-.qty button{
-    width:35px;
-    height:35px;
-    border-radius:10px;
-    background:#eaf3ff;
-    color:#075ba9;
+.price{
     font-weight:bold;
+    margin-bottom:8px;
 }
 
 .cart-item{
-    padding:14px 0;
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
     border-bottom:1px solid #e5e9ef;
+    padding:14px 0;
 }
 
-.cart-total{
+.qty button{
+    padding:5px 9px;
+    margin:2px;
+}
+
+.total{
+    display:flex;
+    justify-content:space-between;
     font-size:20px;
     font-weight:bold;
-    margin:15px 0;
+    margin-top:18px;
 }
 
-/* PROFILE */
-
-.profile-head{
-    text-align:center;
-    padding:15px;
+.payment{
+    border:1px solid #dce3eb;
+    padding:14px;
+    border-radius:12px;
+    margin:10px 0;
 }
 
-.avatar{
-    width:70px;
-    height:70px;
-    border-radius:50%;
-    background:#eaf3ff;
-    display:flex;
-    justify-content:center;
-    align-items:center;
-    margin:auto;
-    font-size:35px;
+input{
+    width:100%;
+    padding:13px;
+    border:1px solid #ccd5df;
+    border-radius:10px;
+    margin-top:7px;
+    font-size:15px;
 }
 
-/* BOTTOM NAV */
-
-.bottom-nav{
+.cart-bar{
     position:fixed;
-    left:0;
-    right:0;
+    left:50%;
+    bottom:65px;
+    transform:translateX(-50%);
+    width:min(440px,calc(100% - 30px));
+    background:#102a43;
+    color:white;
+    padding:12px;
+    border-radius:15px;
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    z-index:20;
+}
+
+nav{
+    position:fixed;
     bottom:0;
-    height:70px;
+    left:50%;
+    transform:translateX(-50%);
+    width:min(480px,100%);
+    height:65px;
     background:white;
-    border-top:1px solid #e1e6ec;
+    border-top:1px solid #ddd;
     display:flex;
     justify-content:space-around;
-    align-items:center;
-    z-index:200;
-    box-shadow:0 -3px 15px rgba(0,0,0,.08);
+    z-index:30;
 }
 
-.nav-btn{
+nav button{
     background:none;
-    color:#778394;
+    color:#637187;
     font-size:11px;
-    text-align:center;
-    padding:7px 9px;
 }
 
-.nav-btn span{
-    display:block;
-    font-size:22px;
-    margin-bottom:2px;
-}
-
-.nav-btn.active{
-    color:#0b6bcb;
+nav button.active{
+    color:#1769e0;
     font-weight:bold;
 }
 
-/* SOS */
+@media(max-width:600px){
 
-.sos-card{
-    background:#fff0ef;
-    border:1px solid #ffc8c4;
-}
-
-/* DESKTOP */
-
-@media(min-width:700px){
-
-    .quick-grid{
-        grid-template-columns:repeat(4,1fr);
+    header{
+        padding:14px 12px;
     }
 
-    .doctor-grid{
-        grid-template-columns:repeat(2,1fr);
+    .brand{
+        gap:10px;
+    }
+
+    .brand img{
+        width:42px;
+        height:42px;
+    }
+
+    .brand h1{
+        font-size:20px;
+    }
+
+    .brand p{
+        font-size:11px;
     }
 
     .screen{
-        padding:25px;
+        padding:14px;
+        padding-bottom:90px;
     }
 
+    .card{
+        padding:16px;
+    }
+
+    button{
+        margin:5px 0;
+    }
 }
 </style>
 </head>
 
 <body>
 
-<!-- TOP BAR -->
-<header class="topbar">
-    <div class="topbar-inner">
-        <div>
-            <div class="logo">💊 MedVerify</div>
-            <div class="top-sub">Medicine Safety Platform</div>
-        </div>
+<div class="app">
+
+<header>
+
+    <div class="brand">
+
+        <!-- MEDITECH LOGO EMBEDDED INSIDE HTML -->
+        <img
+        src="data:image/jpeg;base64,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" 
+        alt="Meditech Logo">
 
         <div>
-            🛒 <span id="cartCount">0</span>
+            <h1>Meditech</h1>
+            <p>Medicine Verification Demo</p>
         </div>
+
     </div>
+
 </header>
 
 
-<!-- ================= HOME ================= -->
+<!-- HOME -->
 
-<section id="home" class="screen active">
+<section id="home" class="screen">
 
     <div class="hero">
-        <h1>Medicine Safety</h1>
+
+        <h2>Verify Your Medicine</h2>
+
         <p>
-            Verify medicines, check expiry, find doctors
-            and access safety tools.
+            Scan the QR code on your medicine package.
         </p>
+
+        <button
+            class="primary full"
+            onclick="showScreen('camera')">
+
+            📷 Open Camera
+
+        </button>
+
     </div>
 
 
     <div class="card">
 
-        <h2>🔎 Verify Medicine</h2>
+        <h3>How it works</h3>
 
-        <p class="small">
-            Enter a demo medicine code or scan its QR code.
+        <p style="color:#68778b;font-size:14px;line-height:1.7">
+
+            1. Open camera<br>
+            2. Scan QR code<br>
+            3. View medicine result<br>
+            4. Open demo store<br>
+            5. Add items to cart<br>
+            6. Continue to demo payment
+
         </p>
 
-        <input
-            id="medicineCode"
-            placeholder="Example: PCM-0087-SAFE"
-        >
+    </div>
+
+
+    <div class="card">
+
+        <h3>🧪 Test Without Camera</h3>
 
         <button
-            class="btn primary"
-            onclick="checkMedicine()">
-            🔍 Verify Medicine
+            class="secondary full"
+            onclick="scanMedicine('AMX-2291-GEN')">
+
+            Verified Medicine
+
         </button>
 
         <button
-            class="btn secondary"
-            onclick="startScanner()">
-            📷 Scan QR Code
+            class="secondary full"
+            onclick="scanMedicine('PCM-0087-SAFE')">
+
+            Paracetamol
+
         </button>
+
+        <button
+            class="secondary full"
+            onclick="scanMedicine('INS-4410-RCL')">
+
+            Recalled Demo Code
+
+        </button>
+
+        <button
+            class="secondary full"
+            onclick="scanMedicine('XYZ-0000-FAKE')">
+
+            Counterfeit Demo Code
+
+        </button>
+
+    </div>
+
+</section>
+
+
+<!-- CAMERA -->
+
+<section id="camera" class="screen hidden">
+
+    <button
+        class="secondary"
+        onclick="showScreen('home')">
+
+        ← Back
+
+    </button>
+
+    <div style="height:15px"></div>
+
+    <div class="camera-box">
 
         <video
-            id="video"
+            id="cameraVideo"
             autoplay
             playsinline>
         </video>
 
-        <button
-            id="stopButton"
-            class="btn danger hidden"
-            onclick="stopScanner()">
-            Stop Camera
-        </button>
+        <div class="scan-frame"></div>
 
-        <div id="scanMessage"></div>
-        <div id="medicineResult"></div>
+        <div class="scan-line"></div>
 
     </div>
 
+    <canvas
+        id="qrCanvas"
+        class="hidden">
+    </canvas>
 
-    <div class="quick-grid">
-
-        <button
-            class="quick"
-            onclick="showScreen('expiry')">
-            <span class="quick-icon">📅</span>
-            Expiry Check
-        </button>
-
-        <button
-            class="quick"
-            onclick="showScreen('doctor')">
-            <span class="quick-icon">👨‍⚕️</span>
-            Find Doctor
-        </button>
-
-        <button
-            class="quick"
-            onclick="showScreen('store')">
-            <span class="quick-icon">🏪</span>
-            Store
-        </button>
-
-        <button
-            class="quick"
-            onclick="showScreen('sos')">
-            <span class="quick-icon">🆘</span>
-            SOS
-        </button>
-
-    </div>
+    <div id="cameraError"></div>
 
 </section>
 
 
-<!-- ================= EXPIRY ================= -->
+<!-- RESULT -->
 
-<section id="expiry" class="screen">
-
-    <div class="card">
-
-        <h2>📅 Medicine Expiry Check</h2>
-
-        <p class="small">
-            Enter the expiry date printed on the package.
-        </p>
-
-        <input
-            type="date"
-            id="expiryDate">
-
-        <button
-            class="btn primary"
-            onclick="checkExpiryDate()">
-            Check Expiry
-        </button>
-
-        <div id="expiryResult"></div>
-
-    </div>
-
-
-    <div class="card">
-
-        <h3>ℹ️ How it works</h3>
-
-        <p class="small">
-            MedVerify compares the entered date with today's date.
-            For a real medicine, always check the actual package
-            and manufacturer information.
-        </p>
-
-    </div>
-
-</section>
-
-
-<!-- ================= DOCTOR ================= -->
-
-<section id="doctor" class="screen">
-
-    <div class="card">
-
-        <h2>👨‍⚕️ Find a Doctor</h2>
-
-        <p class="small">
-            Choose a speciality to view demo doctors.
-        </p>
-
-        <select
-            id="specialty"
-            onchange="showDoctors()">
-
-            <option value="All">
-                All Specialities
-            </option>
-
-            <option value="General Physician">
-                General Physician
-            </option>
-
-            <option value="Pediatrician">
-                Pediatrician
-            </option>
-
-            <option value="ENT Specialist">
-                ENT Specialist
-            </option>
-
-            <option value="Dermatologist">
-                Dermatologist
-            </option>
-
-            <option value="Cardiologist">
-                Cardiologist
-            </option>
-
-        </select>
-
-    </div>
-
-    <div
-        id="doctorList"
-        class="doctor-grid">
-    </div>
-
-</section>
-
-
-<!-- ================= SOS ================= -->
-
-<section id="sos" class="screen">
-
-    <div class="card sos-card">
-
-        <h2>🆘 Medical SOS</h2>
-
-        <p class="small">
-            This is a demonstration feature.
-            It does not contact a real doctor,
-            ambulance or emergency service.
-        </p>
-
-        <button
-            class="btn danger"
-            onclick="sendSOS()">
-            🚨 SEND DEMO SOS
-        </button>
-
-        <div id="sosResult"></div>
-
-    </div>
-
-
-    <div class="card">
-
-        <h3>⚠️ Emergency Notice</h3>
-
-        <p class="small">
-            In a real emergency, contact your local emergency
-            service or a trusted adult immediately.
-        </p>
-
-    </div>
-
-</section>
-
-
-<!-- ================= STORE ================= -->
-
-<section id="store" class="screen">
-
-    <div class="card">
-
-        <h2>🏪 MedVerify Store</h2>
-
-        <p class="small">
-            Demo product catalogue only. No real medicine
-            purchase or payment is processed here.
-        </p>
-
-    </div>
-
-    <div id="productList"></div>
-
-</section>
-
-
-<!-- ================= CART ================= -->
-
-<section id="cart" class="screen">
-
-    <div class="card">
-
-        <h2>🛒 Your Cart</h2>
-
-        <div id="cartItems"></div>
-
-        <div
-            id="cartTotal"
-            class="cart-total">
-            Total: ₹0
-        </div>
-
-        <button
-            class="btn primary"
-            onclick="openCheckout()">
-            Continue to Demo Checkout
-        </button>
-
-    </div>
-
-</section>
-
-
-<!-- ================= CHECKOUT ================= -->
-
-<section id="checkout" class="screen">
-
-    <div class="card">
-
-        <h2>💳 Demo Checkout</h2>
-
-        <p class="small">
-            This is only a UI demonstration.
-            No real payment is processed.
-        </p>
-
-        <input
-            placeholder="Demo name">
-
-        <input
-            placeholder="Demo delivery address">
-
-        <select>
-            <option>Demo UPI</option>
-            <option>Demo Card</option>
-            <option>Cash on Demo Delivery</option>
-        </select>
-
-        <button
-            class="btn success"
-            onclick="demoPayment()">
-            ✅ Complete Demo Payment
-        </button>
-
-        <div id="paymentResult"></div>
-
-    </div>
-
-</section>
-
-
-<!-- ================= PROFILE ================= -->
-
-<section id="profile" class="screen">
-
-    <div class="card profile-head">
-
-        <div class="avatar">
-            👤
-        </div>
-
-        <h2>My Profile</h2>
-
-        <p class="small">
-            MedVerify Demo User
-        </p>
-
-    </div>
-
-
-    <div class="card">
-
-        <div class="row">
-            👤 <b>Account</b>
-        </div>
-
-        <div class="row">
-            🔐 Privacy & Security
-        </div>
-
-        <div class="row">
-            📋 Verification History
-        </div>
-
-        <div class="row">
-            ⚙️ Settings
-        </div>
-
-        <div class="row">
-            ℹ️ About MedVerify
-        </div>
-
-    </div>
-
-</section>
-
-
-<!-- ================= BOTTOM NAV ================= -->
-
-<nav class="bottom-nav">
+<section id="result" class="screen hidden">
 
     <button
-        class="nav-btn active"
-        data-screen="home"
+        class="secondary"
         onclick="showScreen('home')">
-        <span>🏠</span>
-        Home
+
+        ← Back
+
     </button>
 
-    <button
-        class="nav-btn"
-        data-screen="doctor"
-        onclick="showScreen('doctor')">
-        <span>👨‍⚕️</span>
-        Doctor
-    </button>
+    <div id="resultBox"></div>
+
+</section>
+
+
+<!-- STORE -->
+
+<section id="store" class="screen hidden">
+
+    <h2>🏪 Demo Store</h2>
+
+    <p style="color:#68778b">
+        Demo products only. No real medicine purchase.
+    </p>
+
+    <div id="storeItems"></div>
+
+</section>
+
+
+<!-- CART -->
+
+<section id="cart" class="screen hidden">
+
+    <h2>🛒 Cart</h2>
+
+    <div id="cartItems"></div>
+
+    <div class="card">
+
+        <div class="total">
+
+            <span>Total</span>
+
+            <span id="cartTotal">
+                ₹0
+            </span>
+
+        </div>
+
+        <button
+            class="primary full"
+            onclick="openPayment()">
+
+            Continue to Demo Payment
+
+        </button>
+
+    </div>
+
+</section>
+
+
+<!-- PAYMENT -->
+
+<section id="payment" class="screen hidden">
 
     <button
-        class="nav-btn"
-        data-screen="store"
-        onclick="showScreen('store')">
-        <span>🏪</span>
-        Store
-    </button>
-
-    <button
-        class="nav-btn"
-        data-screen="cart"
+        class="secondary"
         onclick="showScreen('cart')">
-        <span>🛒</span>
-        Cart
+
+        ← Back
+
+    </button>
+
+    <div class="card">
+
+        <h2>💳 Demo Payment</h2>
+
+        <div class="warning">
+
+            ⚠️ Demo only.
+            Real payment information mat daalna.
+
+        </div>
+
+        <div class="payment">
+
+            <label>
+                <input
+                    type="radio"
+                    name="payment"
+                    checked
+                    onclick="paymentType('card')">
+
+                Demo Card
+
+            </label>
+
+            <br>
+
+            <label>
+                <input
+                    type="radio"
+                    name="payment"
+                    onclick="paymentType('upi')">
+
+                Demo UPI
+
+            </label>
+
+        </div>
+
+
+        <div id="cardForm">
+
+            <h3>Demo Card Details</h3>
+
+            <input
+                type="text"
+                placeholder="Demo User">
+
+            <label style="display:block;margin-top:12px">
+                Card Number
+            </label>
+
+            <input
+                type="text"
+                maxlength="19"
+                inputmode="numeric"
+                placeholder="XXXX XXXX XXXX XXXX"
+                oninput="formatCard(this)">
+
+            <div style="display:flex;gap:10px">
+
+                <div style="flex:1">
+
+                    <label>Expiry</label>
+
+                    <input
+                        type="text"
+                        maxlength="5"
+                        placeholder="MM/YY">
+
+                </div>
+
+                <div style="flex:1">
+
+                    <label>CVV</label>
+
+                    <input
+                        type="text"
+                        maxlength="4"
+                        placeholder="XXX">
+
+                </div>
+
+            </div>
+
+        </div>
+
+
+        <div id="upiForm" class="hidden">
+
+            <h3>Demo UPI ID</h3>
+
+            <input
+                type="text"
+                placeholder="demo@upi">
+
+        </div>
+
+
+        <button
+            class="primary full"
+            onclick="confirmPayment()">
+
+            Confirm Demo Payment
+
+        </button>
+
+    </div>
+
+</section>
+
+
+<!-- PROFILE -->
+
+<section id="profile" class="screen hidden">
+
+    <h2>👤 Profile</h2>
+
+    <div class="card">
+
+        <h3>Meditech</h3>
+
+        <p style="color:#68778b">
+            Medicine verification prototype.
+        </p>
+
+    </div>
+
+</section>
+
+</div>
+
+
+<!-- CART BAR -->
+
+<div
+    id="cartBar"
+    class="cart-bar hidden">
+
+    <span id="cartCount">
+        0 items
+    </span>
+
+    <button
+        class="primary"
+        onclick="showScreen('cart')">
+
+        View Cart
+
+    </button>
+
+</div>
+
+
+<!-- NAVIGATION -->
+
+<nav>
+
+    <button
+        id="navHome"
+        onclick="showScreen('home')">
+
+        🏠<br>Home
+
     </button>
 
     <button
-        class="nav-btn"
-        data-screen="profile"
+        id="navCamera"
+        onclick="showScreen('camera')">
+
+        📷<br>Scan
+
+    </button>
+
+    <button
+        id="navStore"
+        onclick="showScreen('store')">
+
+        🏪<br>Store
+
+    </button>
+
+    <button
+        id="navCart"
+        onclick="showScreen('cart')">
+
+        🛒<br>Cart
+
+    </button>
+
+    <button
+        id="navProfile"
         onclick="showScreen('profile')">
-        <span>👤</span>
-        Profile
+
+        👤<br>Profile
+
     </button>
 
 </nav>
@@ -823,639 +737,220 @@ select:focus{
 
 <script>
 
-/* ==================================================
+/* =========================
    MEDICINE DATABASE
-================================================== */
+========================= */
 
 const medicines = {
 
-    "PCM-0087-SAFE":{
+    "PCM-0087-SAFE": {
+
         name:"Paracetamol 650mg",
+
         manufacturer:"NatWell Pharma",
-        batch:"PCM-0087-SAFE",
+
         expiry:"2028-10-01",
-        status:"verified",
 
-        food:
-        "Check the actual medicine label or prescription for before/after-food instructions.",
+        status:"verified"
 
-        dose:
-        "Follow the dose written on the prescription or medicine label."
     },
 
-    "AMX-2291-GEN":{
+    "AMX-2291-GEN": {
+
         name:"Amoxicillin 500mg",
+
         manufacturer:"GenPharma Ltd.",
-        batch:"AMX-2291-GEN",
+
         expiry:"2028-12-01",
-        status:"verified",
 
-        food:
-        "Check the actual medicine label or prescription for before/after-food instructions.",
+        status:"verified"
 
-        dose:
-        "Follow the dose written on the prescription or medicine label."
     },
 
-    "INS-4410-RCL":{
+    "INS-4410-RCL": {
+
         name:"Sample Medicine",
+
         manufacturer:"Demo Pharma",
-        batch:"INS-4410-RCL",
+
         expiry:"2027-06-01",
-        status:"recalled",
 
-        food:
-        "Not applicable for this recalled demo product.",
+        status:"recalled"
 
-        dose:
-        "Do not use a recalled product; follow official guidance."
     },
 
-    "XYZ-0000-FAKE":{
+    "XYZ-0000-FAKE": {
+
         name:"Unknown Medicine",
+
         manufacturer:"Unknown",
-        batch:"XYZ-0000-FAKE",
+
         expiry:"Unknown",
-        status:"counterfeit",
 
-        food:"Not available.",
+        status:"counterfeit"
 
-        dose:
-        "Do not use an unverified medicine."
     }
+
 };
 
 
-/* ==================================================
-   NAVIGATION
-================================================== */
-
-function showScreen(screenId){
-
-    document
-    .querySelectorAll(".screen")
-    .forEach(screen=>{
-        screen.classList.remove("active");
-    });
-
-    const target =
-        document.getElementById(screenId);
-
-    if(target){
-        target.classList.add("active");
-    }
-
-
-    document
-    .querySelectorAll(".nav-btn")
-    .forEach(btn=>{
-        btn.classList.remove("active");
-
-        if(btn.dataset.screen === screenId){
-            btn.classList.add("active");
-        }
-    });
-
-
-    window.scrollTo({
-        top:0,
-        behavior:"smooth"
-    });
-
-
-    if(screenId === "cart"){
-        renderCart();
-    }
-
-    if(screenId === "store"){
-        renderProducts();
-    }
-}
-
-
-/* ==================================================
-   MEDICINE CHECK
-================================================== */
-
-function checkMedicine(){
-
-    const code =
-        document
-        .getElementById("medicineCode")
-        .value
-        .trim()
-        .toUpperCase();
-
-    const result =
-        document.getElementById("medicineResult");
-
-
-    if(!code){
-
-        result.innerHTML=`
-            <div class="result warning">
-                ⚠️ Please enter a medicine code.
-            </div>
-        `;
-
-        return;
-    }
-
-
-    const medicine =
-        medicines[code];
-
-
-    if(!medicine){
-
-        result.innerHTML=`
-            <div class="result expired">
-
-                <h3>❌ Medicine Not Found</h3>
-
-                <p>
-                    This code is not available in the
-                    MedVerify demo database.
-                </p>
-
-                <p>
-                    An unavailable code does not automatically
-                    mean a medicine is genuine or counterfeit.
-                </p>
-
-            </div>
-        `;
-
-        return;
-    }
-
-
-    let expired=false;
-
-
-    if(medicine.expiry !== "Unknown"){
-
-        const expiry =
-            new Date(
-                medicine.expiry+"T23:59:59"
-            );
-
-        expired =
-            expiry < new Date();
-    }
-
-
-    let statusHTML="";
-
-
-    if(medicine.status === "recalled"){
-
-        statusHTML=`
-            <div class="result warning">
-
-                <h3>⚠️ RECALLED DEMO PRODUCT</h3>
-
-                <p>
-                    This demo batch is marked as recalled.
-                </p>
-
-            </div>
-        `;
-
-    }else if(medicine.status === "counterfeit"){
-
-        statusHTML=`
-            <div class="result expired">
-
-                <h3>❌ UNVERIFIED DEMO PRODUCT</h3>
-
-                <p>
-                    Do not use an unverified medicine.
-                </p>
-
-            </div>
-        `;
-
-    }else if(expired){
-
-        statusHTML=`
-            <div class="result expired">
-
-                <h3>🚨 MEDICINE EXPIRED</h3>
-
-                <p>
-                    The expiry date stored in the
-                    demo database has passed.
-                </p>
-
-            </div>
-        `;
-
-    }else{
-
-        statusHTML=`
-            <div class="result verified">
-
-                <h3>✅ DEMO MEDICINE VERIFIED</h3>
-
-                <p>
-                    The code matches a verified demo record.
-                </p>
-
-            </div>
-        `;
-    }
-
-
-    result.innerHTML=`
-
-        ${statusHTML}
-
-        <div class="result info">
-
-            <div class="row">
-                <span class="label">Medicine:</span>
-                ${medicine.name}
-            </div>
-
-            <div class="row">
-                <span class="label">Manufacturer:</span>
-                ${medicine.manufacturer}
-            </div>
-
-            <div class="row">
-                <span class="label">Batch:</span>
-                ${medicine.batch}
-            </div>
-
-            <div class="row">
-                <span class="label">Expiry:</span>
-                ${medicine.expiry}
-            </div>
-
-            <div class="row">
-                <span class="label">Expiry Status:</span>
-
-                ${
-                    medicine.expiry==="Unknown"
-                    ?"Unknown"
-                    :expired
-                    ?"❌ Expired"
-                    :"✅ Not Expired"
-                }
-
-            </div>
-
-            <div class="row">
-
-                <span class="label">
-                    🍽️ Food Timing:
-                </span>
-
-                <br>
-
-                ${medicine.food}
-
-            </div>
-
-            <div class="row">
-
-                <span class="label">
-                    💊 Dose Information:
-                </span>
-
-                <br>
-
-                ${medicine.dose}
-
-            </div>
-
-        </div>
-
-        <div class="result warning">
-
-            <b>⚠️ Safety:</b>
-
-            <br>
-
-            For real medicine, follow the prescription
-            and package label. If instructions are unclear,
-            ask a qualified pharmacist or doctor.
-
-        </div>
-    `;
-}
-
-
-/* ==================================================
-   EXPIRY CHECK
-================================================== */
-
-function checkExpiryDate(){
-
-    const value =
-        document
-        .getElementById("expiryDate")
-        .value;
-
-    const result =
-        document.getElementById("expiryResult");
-
-
-    if(!value){
-
-        result.innerHTML=`
-            <div class="result warning">
-                Please select an expiry date.
-            </div>
-        `;
-
-        return;
-    }
-
-
-    const expiry =
-        new Date(value+"T23:59:59");
-
-    const today =
-        new Date();
-
-
-    if(expiry < today){
-
-        result.innerHTML=`
-            <div class="result expired">
-
-                <h3>❌ EXPIRED</h3>
-
-                <p>
-                    The entered expiry date has passed.
-                </p>
-
-            </div>
-        `;
-
-    }else{
-
-        result.innerHTML=`
-            <div class="result verified">
-
-                <h3>✅ NOT EXPIRED</h3>
-
-                <p>
-                    The entered expiry date has not passed.
-                </p>
-
-            </div>
-        `;
-    }
-}
-
-
-/* ==================================================
-   DOCTORS
-================================================== */
-
-const doctors=[
+/* =========================
+   DEMO STORE
+========================= */
+
+const storeItems = [
 
     {
-        name:"Dr. A. Sharma",
-        specialty:"General Physician",
-        distance:"1.2 km",
-        availability:"Available"
+        name:"Medicine Safety Pack",
+        meta:"Demo product",
+        price:99
     },
 
     {
-        name:"Dr. R. Mehta",
-        specialty:"Pediatrician",
-        distance:"2.1 km",
-        availability:"Available"
+        name:"Health Check Kit",
+        meta:"Demo product",
+        price:149
     },
 
     {
-        name:"Dr. S. Khan",
-        specialty:"ENT Specialist",
-        distance:"2.8 km",
-        availability:"Busy"
-    },
-
-    {
-        name:"Dr. P. Verma",
-        specialty:"Dermatologist",
-        distance:"3.4 km",
-        availability:"Available"
-    },
-
-    {
-        name:"Dr. N. Gupta",
-        specialty:"Cardiologist",
-        distance:"4.0 km",
-        availability:"Available"
+        name:"Digital Medicine Guide",
+        meta:"Demo product",
+        price:49
     }
+
 ];
 
 
-function showDoctors(){
+/* =========================
+   SCREEN CONTROL
+========================= */
+
+function showScreen(screenId){
+
+    const screens =
+        document.querySelectorAll(".screen");
+
+    screens.forEach(screen=>{
+
+        screen.classList.add("hidden");
+
+    });
+
 
     const selected =
-        document
-        .getElementById("specialty")
-        .value;
+        document.getElementById(screenId);
 
-    const list =
-        document.getElementById("doctorList");
+    if(selected){
 
+        selected.classList.remove("hidden");
 
-    const filtered =
-        selected==="All"
-        ?doctors
-        :doctors.filter(
-            d=>d.specialty===selected
-        );
-
-
-    list.innerHTML =
-        filtered.map(d=>`
-
-        <div class="doctor">
-
-            <h3>👨‍⚕️ ${d.name}</h3>
-
-            <p>
-                <b>Speciality:</b>
-                ${d.specialty}
-            </p>
-
-            <p>
-                📍 ${d.distance}
-            </p>
-
-            <p class="${
-                d.availability==="Available"
-                ?"available"
-                :"busy"
-            }">
-
-                ${
-                    d.availability==="Available"
-                    ?"🟢 Available"
-                    :"🟡 Busy"
-                }
-
-            </p>
-
-        </div>
-
-    `).join("");
-}
-
-
-/* ==================================================
-   SOS
-================================================== */
-
-function sendSOS(){
-
-    const result =
-        document.getElementById("sosResult");
-
-
-    result.innerHTML=`
-        <div class="result info">
-
-            📍 Requesting demo location...
-
-        </div>
-    `;
-
-
-    if(!navigator.geolocation){
-
-        result.innerHTML=`
-            <div class="result warning">
-                Location is not supported by this browser.
-            </div>
-        `;
-
-        return;
     }
 
 
-    navigator.geolocation.getCurrentPosition(
-
-        function(position){
-
-            const lat =
-                position.coords.latitude.toFixed(5);
-
-            const lon =
-                position.coords.longitude.toFixed(5);
+    stopCamera();
 
 
-            result.innerHTML=`
-                <div class="result verified">
+    if(screenId==="camera"){
 
-                    <h3>✅ Demo SOS Created</h3>
+        startCamera();
 
-                    <p>
-                        📍 Location:
-                        ${lat}, ${lon}
-                    </p>
+    }
 
-                    <p>
-                        👨‍⚕️ Demo responder:
-                        Dr. A. Sharma
-                    </p>
 
-                    <p class="small">
-                        This is only a demonstration.
-                        No real emergency alert was sent.
-                    </p>
+    if(screenId==="store"){
 
-                </div>
-            `;
-        },
+        renderStore();
 
-        function(){
+    }
 
-            result.innerHTML=`
-                <div class="result warning">
 
-                    <h3>⚠️ Location Permission</h3>
+    if(screenId==="cart"){
 
-                    <p>
-                        Allow location access to test
-                        the demo SOS.
-                    </p>
+        renderCart();
 
-                </div>
-            `;
-        }
-    );
+    }
+
+
+    updateNavigation(screenId);
+
 }
 
 
-/* ==================================================
-   QR SCANNER
-================================================== */
+/* =========================
+   NAVIGATION ACTIVE
+========================= */
 
-let stream=null;
-let scanning=false;
+function updateNavigation(screenId){
 
+    const buttons = {
 
-const video =
-    document.getElementById("video");
+        home:"navHome",
 
-const canvas =
-    document.createElement("canvas");
+        camera:"navCamera",
 
-const ctx =
-    canvas.getContext("2d");
+        store:"navStore",
 
+        cart:"navCart",
 
-function loadQRLibrary(){
+        profile:"navProfile"
 
-    return new Promise((resolve,reject)=>{
-
-        if(window.jsQR){
-
-            resolve();
-            return;
-        }
+    };
 
 
-        const script =
-            document.createElement("script");
+    Object.values(buttons).forEach(id=>{
 
-        script.src =
-        "https://cdn.jsdelivr.net/npm/jsqr@1.4.0/dist/jsQR.js";
+        document
+            .getElementById(id)
+            .classList.remove("active");
 
-        script.onload=resolve;
-        script.onerror=reject;
-
-        document.head.appendChild(script);
     });
+
+
+    if(buttons[screenId]){
+
+        document
+            .getElementById(buttons[screenId])
+            .classList.add("active");
+
+    }
+
 }
 
 
-async function startScanner(){
+/* =========================
+   CAMERA
+========================= */
 
-    const message =
-        document.getElementById("scanMessage");
+let cameraStream = null;
+
+let scanAnimation = null;
+
+
+async function startCamera(){
+
+    const video =
+        document.getElementById("cameraVideo");
+
+    const error =
+        document.getElementById("cameraError");
+
+
+    if(!navigator.mediaDevices ||
+       !navigator.mediaDevices.getUserMedia){
+
+        error.innerHTML =
+        `<div class="error">
+            Camera is not supported here.
+        </div>`;
+
+        return;
+
+    }
 
 
     try{
 
-        await loadQRLibrary();
-
-
-        if(!navigator.mediaDevices){
-
-            throw new Error("Camera unavailable");
-        }
-
-
-        stream =
+        cameraStream =
             await navigator.mediaDevices.getUserMedia({
 
                 video:{
@@ -1465,414 +960,794 @@ async function startScanner(){
                 },
 
                 audio:false
+
             });
 
 
-        video.srcObject=stream;
+        video.srcObject =
+            cameraStream;
 
-        video.style.display="block";
-
-
-        document
-        .getElementById("stopButton")
-        .classList.remove("hidden");
+        await video.play();
 
 
-        scanning=true;
+        scanAnimation =
+            requestAnimationFrame(scanQR);
 
-
-        message.innerHTML=`
-            <div class="result info">
-                📷 Camera started.
-                Point it at the QR code.
-            </div>
-        `;
-
-
-        scanFrame();
-
-
-    }catch(error){
-
-        message.innerHTML=`
-            <div class="result expired">
-
-                ❌ Camera could not be started.
-
-                <br><br>
-
-                Allow camera permission or enter
-                the code manually.
-
-            </div>
-        `;
     }
+
+    catch(errorObject){
+
+        console.log(errorObject);
+
+        error.innerHTML =
+        `<div class="error">
+
+            ❌ Camera access नहीं मिला।<br><br>
+
+            Browser में Camera permission को
+            <b>Allow</b> करो।
+
+        </div>`;
+
+    }
+
 }
 
 
-function scanFrame(){
+/* =========================
+   QR SCANNING
+========================= */
 
-    if(!scanning){
-        return;
-    }
+function scanQR(){
+
+    const video =
+        document.getElementById("cameraVideo");
+
+    const canvas =
+        document.getElementById("qrCanvas");
 
 
-    if(video.readyState === video.HAVE_ENOUGH_DATA){
+    if(
 
-        canvas.width=video.videoWidth;
-        canvas.height=video.videoHeight;
+        video.readyState >= 2 &&
+
+        video.videoWidth > 0 &&
+
+        typeof jsQR !== "undefined"
+
+    ){
+
+        canvas.width =
+            video.videoWidth;
+
+        canvas.height =
+            video.videoHeight;
+
+
+        const ctx =
+            canvas.getContext(
+                "2d",
+                {
+                    willReadFrequently:true
+                }
+            );
 
 
         ctx.drawImage(
+
             video,
+
             0,
+
             0,
+
             canvas.width,
+
             canvas.height
+
         );
 
 
-        const imageData =
+        const image =
             ctx.getImageData(
+
                 0,
+
                 0,
+
                 canvas.width,
+
                 canvas.height
+
             );
 
 
-        const code =
+        const qr =
             jsQR(
-                imageData.data,
-                imageData.width,
-                imageData.height
+
+                image.data,
+
+                image.width,
+
+                image.height
+
             );
 
 
-        if(code && code.data){
+        if(qr && qr.data){
 
-            document
-            .getElementById("medicineCode")
-            .value=code.data;
+            stopCamera();
 
-
-            stopScanner();
-
-            checkMedicine();
+            scanMedicine(
+                qr.data.trim()
+            );
 
             return;
+
         }
+
     }
 
 
-    requestAnimationFrame(scanFrame);
+    scanAnimation =
+        requestAnimationFrame(scanQR);
+
 }
 
 
-function stopScanner(){
+/* =========================
+   STOP CAMERA
+========================= */
 
-    scanning=false;
+function stopCamera(){
 
+    if(scanAnimation){
 
-    if(stream){
+        cancelAnimationFrame(
+            scanAnimation
+        );
 
-        stream
-        .getTracks()
-        .forEach(track=>track.stop());
+        scanAnimation = null;
 
-        stream=null;
     }
 
 
-    video.srcObject=null;
+    if(cameraStream){
 
-    video.style.display="none";
+        cameraStream
+            .getTracks()
+            .forEach(track=>{
+                track.stop();
+            });
+
+        cameraStream = null;
+
+    }
 
 
-    document
-    .getElementById("stopButton")
-    .classList.add("hidden");
+    const video =
+        document.getElementById("cameraVideo");
+
+
+    if(video){
+
+        video.srcObject = null;
+
+    }
+
 }
 
 
-/* ==================================================
-   DEMO STORE
-================================================== */
+/* =========================
+   MEDICINE RESULT
+========================= */
 
-const products=[
+function scanMedicine(code){
 
-    {
-        id:1,
-        name:"Medicine Safety Box",
-        price:299,
-        icon:"🧰"
-    },
+    stopCamera();
 
-    {
-        id:2,
-        name:"Digital Thermometer",
-        price:399,
-        icon:"🌡️"
-    },
+    showScreen("result");
 
-    {
-        id:3,
-        name:"First Aid Kit",
-        price:499,
-        icon:"🩹"
-    },
 
-    {
-        id:4,
-        name:"Medicine Organizer",
-        price:249,
-        icon:"📦"
+    const medicine =
+        medicines[code];
+
+
+    const box =
+        document.getElementById("resultBox");
+
+
+    if(!medicine){
+
+        box.innerHTML =
+
+        `<div class="danger">
+
+            ❌ QR Code Not Recognised
+
+        </div>
+
+        <div class="card">
+
+            <b>Scanned Code</b>
+
+            <p>
+                ${escapeHTML(code)}
+            </p>
+
+        </div>`;
+
+        return;
+
     }
-];
 
 
-let cart=[];
+    if(medicine.status==="verified"){
+
+        box.innerHTML =
+
+        `<div class="success">
+
+            <h3>✓ Medicine Verified</h3>
+
+            <p>
+                Demo verification successful.
+            </p>
+
+        </div>
+
+        <div class="card">
+
+            <b>Medicine</b>
+
+            <p>
+                ${medicine.name}
+            </p>
+
+            <br>
+
+            <b>Manufacturer</b>
+
+            <p>
+                ${medicine.manufacturer}
+            </p>
+
+            <br>
+
+            <b>Expiry Date</b>
+
+            <p>
+                ${medicine.expiry}
+            </p>
+
+            <br>
+
+            <b>QR Code</b>
+
+            <p>
+                ${escapeHTML(code)}
+            </p>
+
+        </div>
+
+        <button
+            class="primary full"
+            onclick="showScreen('store')">
+
+            🏪 Open Demo Store
+
+        </button>`;
+
+        return;
+
+    }
 
 
-function renderProducts(){
+    if(medicine.status==="recalled"){
 
-    const list =
-        document.getElementById("productList");
+        box.innerHTML =
+
+        `<div class="warning">
+
+            ⚠️ Recalled Demo Product
+
+        </div>
+
+        <div class="card">
+
+            <b>
+                ${medicine.name}
+            </b>
+
+            <p>
+                ${medicine.manufacturer}
+            </p>
+
+            <p>
+                This is demonstration data only.
+            </p>
+
+        </div>`;
+
+        return;
+
+    }
 
 
-    list.innerHTML =
-        products.map(product=>`
+    box.innerHTML =
 
-        <div class="product">
+    `<div class="danger">
 
-            <div class="product-top">
+        ❌ Counterfeit / Unknown Demo Code
 
-                <div class="product-icon">
-                    ${product.icon}
+    </div>
+
+    <div class="card">
+
+        <b>Warning</b>
+
+        <p>
+
+            This demonstration code is marked
+            as counterfeit.
+
+        </p>
+
+    </div>`;
+
+}
+
+
+/* =========================
+   STORE
+========================= */
+
+function renderStore(){
+
+    const container =
+        document.getElementById("storeItems");
+
+
+    container.innerHTML = "";
+
+
+    storeItems.forEach((item,index)=>{
+
+        container.innerHTML +=
+
+        `<div class="card">
+
+            <div class="item">
+
+                <div>
+
+                    <h3>
+                        ${item.name}
+                    </h3>
+
+                    <small>
+                        ${item.meta}
+                    </small>
+
                 </div>
 
                 <div>
 
-                    <div class="product-name">
-                        ${product.name}
+                    <div class="price">
+                        ₹${item.price}
                     </div>
 
-                    <div class="product-price">
-                        ₹${product.price}
-                    </div>
+                    <button
+                        class="primary"
+                        onclick="addToCart(${index})">
+
+                        Add
+
+                    </button>
 
                 </div>
 
             </div>
 
-            <button
-                class="btn primary"
-                onclick="addToCart(${product.id})">
+        </div>`;
 
-                🛒 Add to Cart
+    });
 
-            </button>
 
-        </div>
+    updateCartBar();
 
-    `).join("");
 }
 
 
-function addToCart(id){
+/* =========================
+   CART
+========================= */
 
-    const product =
-        products.find(p=>p.id===id);
+let cart = [];
 
-    if(!product){
-        return;
-    }
+
+function addToCart(index){
+
+    const item =
+        storeItems[index];
 
 
     const existing =
-        cart.find(item=>item.id===id);
+        cart.find(
+            x=>x.name===item.name
+        );
 
 
     if(existing){
 
         existing.qty++;
 
-    }else{
+    }
+
+    else{
 
         cart.push({
-            ...product,
+
+            name:item.name,
+
+            price:item.price,
+
+            meta:item.meta,
+
             qty:1
+
         });
+
     }
 
 
-    updateCartCount();
+    updateCartBar();
 
-    alert("Added to demo cart.");
 }
 
 
-function updateCartCount(){
+/* =========================
+   CART BAR
+========================= */
+
+function updateCartBar(){
+
+    const bar =
+        document.getElementById("cartBar");
+
 
     const count =
         cart.reduce(
-            (total,item)=>total+item.qty,
+
+            (sum,item)=>
+                sum + item.qty,
+
             0
+
         );
 
 
-    document
-    .getElementById("cartCount")
-    .textContent=count;
+    document.getElementById(
+        "cartCount"
+    ).textContent =
+
+        count +
+        " item" +
+        (count!==1 ? "s" : "");
+
+
+    if(count>0){
+
+        bar.classList.remove("hidden");
+
+    }
+
+    else{
+
+        bar.classList.add("hidden");
+
+    }
+
 }
 
 
-function changeQty(id,change){
-
-    const item =
-        cart.find(i=>i.id===id);
-
-
-    if(!item){
-        return;
-    }
-
-
-    item.qty+=change;
-
-
-    if(item.qty<=0){
-
-        cart =
-            cart.filter(
-                i=>i.id!==id
-            );
-    }
-
-
-    updateCartCount();
-    renderCart();
-}
-
+/* =========================
+   CART PAGE
+========================= */
 
 function renderCart(){
 
     const container =
         document.getElementById("cartItems");
 
-    const totalBox =
+
+    const totalElement =
         document.getElementById("cartTotal");
+
+
+    container.innerHTML = "";
 
 
     if(cart.length===0){
 
-        container.innerHTML=`
-            <div class="result info">
-                🛒 Your cart is empty.
-            </div>
-        `;
+        container.innerHTML =
 
-        totalBox.textContent="Total: ₹0";
+        `<div
+            class="card"
+            style="text-align:center">
+
+            <h3>
+                Cart is Empty
+            </h3>
+
+            <p style="color:#68778b">
+
+                Store से कोई demo item add करो।
+
+            </p>
+
+            <button
+                class="primary full"
+                onclick="showScreen('store')">
+
+                Open Store
+
+            </button>
+
+        </div>`;
+
+
+        totalElement.textContent =
+            "₹0";
+
+
+        updateCartBar();
 
         return;
+
     }
 
 
-    let total=0;
+    let total = 0;
 
 
-    container.innerHTML =
-        cart.map(item=>{
+    cart.forEach((item,index)=>{
 
-            total +=
-                item.price*item.qty;
+        total +=
+            item.price * item.qty;
 
 
-            return `
+        container.innerHTML +=
 
-            <div class="cart-item">
+        `<div class="card cart-item">
+
+            <div>
 
                 <b>
-                    ${item.icon}
                     ${item.name}
                 </b>
 
-                <p>
-                    ₹${item.price} × ${item.qty}
-                </p>
+                <div style="color:#68778b">
 
-                <div class="qty">
-
-                    <button
-                        onclick="changeQty(${item.id},-1)">
-                        −
-                    </button>
-
-                    <b>${item.qty}</b>
-
-                    <button
-                        onclick="changeQty(${item.id},1)">
-                        +
-                    </button>
+                    ₹${item.price} each
 
                 </div>
 
             </div>
 
-            `;
-        }).join("");
+            <div class="qty">
+
+                <button
+                    class="secondary"
+                    onclick="changeQty(${index},-1)">
+
+                    −
+
+                </button>
+
+                <b>
+                    ${item.qty}
+                </b>
+
+                <button
+                    class="secondary"
+                    onclick="changeQty(${index},1)">
+
+                    +
+
+                </button>
+
+                <button
+                    class="secondary"
+                    onclick="removeItem(${index})">
+
+                    ✕
+
+                </button>
+
+            </div>
+
+        </div>`;
+
+    });
 
 
-    totalBox.textContent=
-        "Total: ₹"+total;
+    totalElement.textContent =
+        "₹" + total;
+
+
+    updateCartBar();
+
 }
 
 
-function openCheckout(){
+/* =========================
+   QUANTITY
+========================= */
 
-    if(cart.length===0){
+function changeQty(index,change){
 
-        alert("Your demo cart is empty.");
+    cart[index].qty += change;
 
-        return;
+
+    if(cart[index].qty<=0){
+
+        cart.splice(index,1);
+
     }
 
 
-    showScreen("checkout");
+    renderCart();
+
 }
 
 
-function demoPayment(){
+/* =========================
+   REMOVE
+========================= */
 
-    const result =
-        document.getElementById("paymentResult");
+function removeItem(index){
 
+    cart.splice(index,1);
 
-    result.innerHTML=`
-        <div class="result verified">
+    renderCart();
 
-            <h3>✅ Demo Payment Successful</h3>
-
-            <p>
-                This was only a simulated payment.
-            </p>
-
-            <p>
-                No real money was charged.
-            </p>
-
-        </div>
-    `;
 }
 
 
-/* ==================================================
-   INITIALIZE
-================================================== */
+/* =========================
+   PAYMENT
+========================= */
 
-showDoctors();
-renderProducts();
-updateCartCount();
+function openPayment(){
+
+    if(cart.length===0){
+
+        alert(
+            "Cart empty hai."
+        );
+
+        return;
+
+    }
+
+
+    showScreen("payment");
+
+}
+
+
+/* =========================
+   PAYMENT TYPE
+========================= */
+
+function paymentType(type){
+
+    document
+        .getElementById("cardForm")
+        .classList.add("hidden");
+
+
+    document
+        .getElementById("upiForm")
+        .classList.add("hidden");
+
+
+    if(type==="card"){
+
+        document
+            .getElementById("cardForm")
+            .classList.remove("hidden");
+
+    }
+
+
+    if(type==="upi"){
+
+        document
+            .getElementById("upiForm")
+            .classList.remove("hidden");
+
+    }
+
+}
+
+
+/* =========================
+   CARD FORMAT
+========================= */
+
+function formatCard(input){
+
+    let value =
+        input.value
+        .replace(/\D/g,"")
+        .slice(0,16);
+
+
+    let groups =
+        value.match(/.{1,4}/g);
+
+
+    input.value =
+        groups
+        ? groups.join(" ")
+        : "";
+
+}
+
+
+/* =========================
+   DEMO PAYMENT
+========================= */
+
+function confirmPayment(){
+
+    alert(
+
+        "✅ Demo Payment Successful!\n\n"+
+        "No real payment was processed."
+
+    );
+
+
+    cart = [];
+
+
+    updateCartBar();
+
+
+    showScreen("home");
+
+}
+
+
+/* =========================
+   HTML ESCAPE
+========================= */
+
+function escapeHTML(text){
+
+    return String(text)
+
+        .replace(/&/g,"&amp;")
+
+        .replace(/</g,"&lt;")
+
+        .replace(/>/g,"&gt;")
+
+        .replace(/"/g,"&quot;")
+
+        .replace(/'/g,"&#039;");
+
+}
+
+
+/* =========================
+   START APP
+========================= */
+
+showScreen("home");
 
 </script>
 
