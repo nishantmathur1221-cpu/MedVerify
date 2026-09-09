@@ -24,10 +24,15 @@ body{
     background:#fff;
 }
 
-header{
-    background:#102a43;
-    color:white;
-    padding:20px;
+<header>
+    <div class="brand">
+        <img src="{{ url_for('static', filename='logo.jpg') }}" alt="Meditech Logo">
+        <div>
+            <h1>Meditech</h1>
+            <p>Medicine Verification Demo</p>
+        </div>
+    </div>
+</header>
 }
 
 .brand{
